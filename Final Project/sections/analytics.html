@@ -1,0 +1,330 @@
+<div id="analytics" class="dashboard-section">
+    <div class="section-header">
+        <h2>Analytics & Insights</h2>
+        <div class="date-range">
+            <select id="analyticsDateRange">
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+                <option>Last 90 Days</option>
+                <option>Year to Date</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="analytics-grid">
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Total Incidents</div>
+                    <div class="stat-trend trend-up">+12% from last week</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Fire Alerts</div>
+                    <div class="stat-trend trend-up">+33% from last week</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-fall"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Fall Detections</div>
+                    <div class="stat-trend trend-down">-17% from last week</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">11</div>
+                    <div class="stat-label">Crowd Alerts</div>
+                    <div class="stat-trend trend-up">+22% from last week</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container full-width">
+                <div class="chart-header">
+                    <h3>Incidents by Type</h3>
+                    <div class="chart-legend">
+                        <span class="legend-item"><i class="fas fa-square" style="color: #ff6b6b"></i> Fire</span>
+                        <span class="legend-item"><i class="fas fa-square" style="color: #4ecdc4"></i> Falls</span>
+                        <span class="legend-item"><i class="fas fa-square" style="color: #45b7d1"></i> Crowd</span>
+                        <span class="legend-item"><i class="fas fa-square" style="color: #96ceb4"></i> Audio</span>
+                        <span class="legend-item"><i class="fas fa-square" style="color: #feca57"></i> Other</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-pie" style="font-size: 48px; color: #3498db;"></i>
+                        <p>Incident Type Distribution Chart</p>
+                        <div class="chart-data-preview">
+                            <div class="data-item">
+                                <span class="data-label">Fire: 8 incidents (33%)</span>
+                                <div class="data-bar" style="width: 33%; background: #ff6b6b;"></div>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">Falls: 5 incidents (21%)</span>
+                                <div class="data-bar" style="width: 21%; background: #4ecdc4;"></div>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">Crowd: 11 incidents (46%)</span>
+                                <div class="data-bar" style="width: 46%; background: #45b7d1;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Alerts Over Time</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-line" style="font-size: 48px; color: #2ecc71;"></i>
+                        <p>Alert Timeline Chart</p>
+                        <div class="timeline-preview">
+                            <div class="timeline-day">
+                                <span>Mon: 3 alerts</span>
+                                <div class="timeline-bar" style="height: 30px;"></div>
+                            </div>
+                            <div class="timeline-day">
+                                <span>Tue: 5 alerts</span>
+                                <div class="timeline-bar" style="height: 50px;"></div>
+                            </div>
+                            <div class="timeline-day">
+                                <span>Wed: 2 alerts</span>
+                                <div class="timeline-bar" style="height: 20px;"></div>
+                            </div>
+                            <div class="timeline-day">
+                                <span>Thu: 6 alerts</span>
+                                <div class="timeline-bar" style="height: 60px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Detection Accuracy</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-bar" style="font-size: 48px; color: #e74c3c;"></i>
+                        <p>Accuracy Metrics Chart</p>
+                        <div class="accuracy-preview">
+                            <div class="accuracy-item">
+                                <span>Fire: 92%</span>
+                                <div class="accuracy-bar" style="width: 92%; background: #27ae60;"></div>
+                            </div>
+                            <div class="accuracy-item">
+                                <span>Falls: 88%</span>
+                                <div class="accuracy-bar" style="width: 88%; background: #27ae60;"></div>
+                            </div>
+                            <div class="accuracy-item">
+                                <span>Crowd: 85%</span>
+                                <div class="accuracy-bar" style="width: 85%; background: #f39c12;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Response Times</h3>
+                    <div class="avg-response">Avg: 2.3 min</div>
+                </div>
+                <div class="chart-wrapper">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-clock" style="font-size: 48px; color: #9b59b6;"></i>
+                        <p>Response Time Analysis</p>
+                        <div class="response-preview">
+                            <div class="response-item">
+                                <span>Fire: 1.8 min</span>
+                                <div class="response-bar" style="width: 60%; background: #e74c3c;"></div>
+                            </div>
+                            <div class="response-item">
+                                <span>Falls: 3.2 min</span>
+                                <div class="response-bar" style="width: 100%; background: #e74c3c;"></div>
+                            </div>
+                            <div class="response-item">
+                                <span>Crowd: 2.1 min</span>
+                                <div class="response-bar" style="width: 70%; background: #f39c12;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container full-width">
+            <div class="chart-header">
+                <h3>Location Analysis</h3>
+                <div class="map-controls">
+                    <select id="mapLayer">
+                        <option value="heatmap">Heatmap</option>
+                        <option value="markers">Markers</option>
+                        <option value="clusters">Clusters</option>
+                    </select>
+                    <button class="btn btn-outline" id="refreshMap">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            <div id="analyticsMap"
+                style="height: 400px; border-radius: 8px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                <div class="map-loading">
+                    <i class="fas fa-map-marked-alt" style="font-size: 48px; color: #6c757d; margin-bottom: 15px;"></i>
+                    <p>Interactive Location Heatmap</p>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff0000;"></div>
+                            <span>High Incident Area</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ffff00;"></div>
+                            <span>Medium Incident Area</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #00ff00;"></div>
+                            <span>Low Incident Area</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reports-section">
+            <div class="section-header">
+                <h3>Detailed Reports</h3>
+                <button class="btn btn-outline">
+                    <i class="fas fa-download"></i> Export Report
+                </button>
+            </div>
+
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h4>Peak Incident Hours</h4>
+                    <div class="report-content">
+                        <div class="hourly-stats">
+                            <div class="hour-stat">
+                                <span class="hour">8:00 AM</span>
+                                <div class="stat-bar">
+                                    <div class="bar-fill" style="width: 85%"></div>
+                                </div>
+                                <span class="stat-count">17</span>
+                            </div>
+                            <div class="hour-stat">
+                                <span class="hour">12:00 PM</span>
+                                <div class="stat-bar">
+                                    <div class="bar-fill" style="width: 65%"></div>
+                                </div>
+                                <span class="stat-count">13</span>
+                            </div>
+                            <div class="hour-stat">
+                                <span class="hour">4:00 PM</span>
+                                <div class="stat-bar">
+                                    <div class="bar-fill" style="width: 45%"></div>
+                                </div>
+                                <span class="stat-count">9</span>
+                            </div>
+                            <div class="hour-stat">
+                                <span class="hour">8:00 PM</span>
+                                <div class="stat-bar">
+                                    <div class="bar-fill" style="width: 30%"></div>
+                                </div>
+                                <span class="stat-count">6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h4>Camera Performance</h4>
+                    <div class="report-content">
+                        <div class="camera-performance">
+                            <div class="camera-stat">
+                                <span class="camera-name">Main Entrance</span>
+                                <div class="uptime-indicator">
+                                    <div class="uptime-bar">
+                                        <div class="uptime-fill" style="width: 98%"></div>
+                                    </div>
+                                    <span class="uptime-percent">98%</span>
+                                </div>
+                            </div>
+                            <div class="camera-stat">
+                                <span class="camera-name">Parking Lot</span>
+                                <div class="uptime-indicator">
+                                    <div class="uptime-bar">
+                                        <div class="uptime-fill" style="width: 92%"></div>
+                                    </div>
+                                    <span class="uptime-percent">92%</span>
+                                </div>
+                            </div>
+                            <div class="camera-stat">
+                                <span class="camera-name">Staircase 3</span>
+                                <div class="uptime-indicator">
+                                    <div class="uptime-bar">
+                                        <div class="uptime-fill" style="width: 87%"></div>
+                                    </div>
+                                    <span class="uptime-percent">87%</span>
+                                </div>
+                            </div>
+                            <div class="camera-stat">
+                                <span class="camera-name">Kitchen B</span>
+                                <div class="uptime-indicator">
+                                    <div class="uptime-bar">
+                                        <div class="uptime-fill" style="width: 95%"></div>
+                                    </div>
+                                    <span class="uptime-percent">95%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h4>Alert Severity Distribution</h4>
+                    <div class="report-content">
+                        <div class="severity-distribution">
+                            <div class="severity-item">
+                                <span class="severity-label">High</span>
+                                <div class="severity-bar high-severity" style="width: 35%"></div>
+                                <span class="severity-count">8</span>
+                            </div>
+                            <div class="severity-item">
+                                <span class="severity-label">Medium</span>
+                                <div class="severity-bar medium-severity" style="width: 45%"></div>
+                                <span class="severity-count">11</span>
+                            </div>
+                            <div class="severity-item">
+                                <span class="severity-label">Low</span>
+                                <div class="severity-bar low-severity" style="width: 20%"></div>
+                                <span class="severity-count">5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

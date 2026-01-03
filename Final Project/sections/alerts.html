@@ -1,0 +1,59 @@
+<div id="alerts" class="dashboard-section">
+    <div class="section-header">
+        <h2>Alert Logs</h2>
+        <div class="date-range">
+            <select>
+                <option>Today</option>
+                <option>Last 24 Hours</option>
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+                <option>Custom Range</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="alert-filters">
+        <button class="filter-btn active">All Alerts</button>
+        <button class="filter-btn">Fire</button>
+        <button class="filter-btn">Crashes</button>
+        <button class="filter-btn">Falls</button>
+        <button class="filter-btn">Crowd</button>
+        <button class="filter-btn">Audio</button>
+        <button class="filter-btn">High Severity</button>
+    </div>
+
+    <table class="alert-table">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Alert Type</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Severity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Aug 6, 10:24 AM</td>
+                <td><span class="alert-type type-crowd">Crowd</span></td>
+                <td>Main Entrance</td>
+                <td>Unusual crowd formation detected</td>
+                <td class="severity-medium">Medium</td>
+            </tr>
+            <tr>
+                <td>Aug 6, 9:45 AM</td>
+                <td><span class="alert-type type-fire">Fire</span></td>
+                <td>Kitchen, Building B</td>
+                <td>Possible fire detected</td>
+                <td class="severity-high">High</td>
+            </tr>
+            <tr>
+                <td>Aug 6, 8:30 AM</td>
+                <td><span class="alert-type type-fall">Fall</span></td>
+                <td>Staircase, Floor 3</td>
+                <td>Person fall detected</td>
+                <td class="severity-high">High</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
