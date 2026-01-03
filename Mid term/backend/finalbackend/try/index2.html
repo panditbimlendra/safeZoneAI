@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartZone AI - Safety Monitoring Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #4285f4;
+            --accent: #34a853;
+            --danger: #ea4335;
+            --warning: #fbbc05;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --gray: #5f6368;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--dark), #0d1117);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+            left: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background: var(--secondary);
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0 15px;
+        }
+
+        .nav-links li {
+            margin-bottom: 5px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(66, 133, 244, 0.2);
+            color: white;
+        }
+
+        .nav-links a i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            padding-top: 0;
+            display: block;
+            width: 100%;
+        }
+
+        header {
+            background: white;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f1f3f4;
+            padding: 8px 15px;
+            border-radius: 24px;
+            width: 400px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 5px 10px;
+            font-size: 15px;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification {
+            position: relative;
+            margin-right: 25px;
+            cursor: pointer;
+        }
+
+        .notification i {
+            font-size: 20px;
+            color: var(--gray);
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        /* Dashboard Sections */
+        .dashboard-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            display: none;
+            width: 100%;
+            margin: 20px 0;
+            clear: both;
+        }
+
+        .dashboard-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-header h2 {
+            font-size: 22px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Live Monitoring Section */
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        #cctvFeed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-safe {
+            background: var(--accent);
+        }
+
+        .status-danger {
+            background: var(--danger);
+        }
+
+        .detection-stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 15px;
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .detection-list {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .detection-list h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .detection-item {
+            display: flex;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            align-items: center;
+        }
+
+        .detection-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+            color: white;
+        }
+
+        .icon-fire {
+            background: var(--danger);
+        }
+
+        .icon-crash {
+            background: #f57c00;
+        }
+
+        .icon-fall {
+            background: #ab47bc;
+        }
+
+        .icon-crowd {
+            background: #0288d1;
+        }
+
+        .icon-scream {
+            background: #7b1fa2;
+        }
+
+        .detection-info {
+            flex: 1;
+        }
+
+        .detection-info h4 {
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .detection-info p {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .detection-time {
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        /* Upload Section */
+        .upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border: 2px dashed #dadce0;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 300px;
+        }
+
+        .upload-container.highlight {
+            border-color: var(--accent);
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+
+        .upload-container:hover {
+            border-color: var(--primary);
+            background: #edf3fe;
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .upload-text h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .upload-text p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            background: #0d62c9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .upload-progress {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .detection-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .option-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover,
+        .option-card.active {
+            border-color: var(--primary);
+            background: #edf3fe;
+        }
+
+        .option-card i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .option-card h4 {
+            font-size: 14px;
+        }
+
+        /* Analysis Result Styles */
+        #analysisResult {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+
+        #resultImage {
+            max-height: 400px;
+            margin: 20px auto;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        #resultMessage {
+            font-size: 18px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 20px 5px;
+            }
+
+            .logo h1,
+            .nav-links span {
+                display: none;
+            }
+
+            .logo {
+                justify-content: center;
+                padding: 0 0 20px;
+            }
+
+            .logo img {
+                margin-right: 0;
+            }
+
+            .nav-links a {
+                justify-content: center;
+                padding: 15px 5px;
+            }
+
+            .nav-links a i {
+                margin-right: 0;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+
+            .search-bar {
+                width: 200px;
+            }
+        }
+
+        .date-display {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+
+        #kathmandu-date {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        #kathmandu-time {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .timezone-label {
+            color: var(--gray);
+            font-size: 0.9em;
+        }
+
+        /* Toggle button */
+        .sidebar-toggle {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Camera Controls */
+        .camera-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            z-index: 10;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .control-btn i {
+            font-size: 14px;
+        }
+
+        /* Offline State */
+        .camera-offline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            color: #ddd;
+            z-index: 5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-toggle">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="logo">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyeiIvPjxwYXRoIGQ9Ik0xMiA1YzEuNjYgMCAzIDEuMzQgMyAzcy0xLjM0IDMtMyAzLTMtMS4zNC0zLTMgMS4zNC0zIDMtM3ptMCAxMi41YzIuNzYgMCA1LTEuNzQgNS0zLjg4LS4wMS0xLjI0LTIuNTEtMi4xMi01LTIuMTJzLTQuOTkuODctNSAyaC0uMDFjMCAyLjE0IDIuMjQgMy44OCA1IDMuODh6Ii8+PC9zdmc+"
+                alt="SmartZone AI Logo">
+            <h1>Smart<span>Zone</span> AI</h1>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="#" class="active" data-section="home"><i class="fas fa-home"></i> <span>Home</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="monitoring"><i class="fas fa-video"></i> <span>Live Monitoring</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="upload"><i class="fas fa-cloud-upload-alt"></i> <span>Upload Video</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="alerts"><i class="fas fa-bell"></i> <span>Alert Logs</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="analytics"><i class="fas fa-chart-bar"></i> <span>Analytics</span></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search incidents, alerts, cameras...">
+            </div>
+
+            <div class="user-actions">
+                <div class="notification">
+                    <i class="fas fa-bell"></i>
+                    <div class="badge">3</div>
+                </div>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=1a73e8&color=fff" alt="User">
+                    <span>Admin User</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Overview -->
+        <div id="home" class="dashboard-section active">
+            <div class="section-header">
+                <h2>Dashboard Overview</h2>
+                <div class="date-display">
+                    <span class="timezone-label">NPT:</span>
+                    <span id="kathmandu-date">2023-10-15</span>
+                    <span id="kathmandu-time">14:35:27</span>
+                </div>
+            </div>
+
+            <div class="analytics-grid"
+                style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+                <div class="chart-container"
+                    style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                    <div class="chart-header">
+                        <h3>System Status</h3>
+                    </div>
+                    <div class="status-display">
+                        <div class="status-indicator">
+                            <div class="status-dot status-safe"></div>
+                            All Systems Operational
+                        </div>
+                    </div>
+                    <div class="chart-placeholder"
+                        style="height: 300px; display: flex; align-items: center; justify-content: center; color: var(--gray); background: #f8f9fa; border-radius: 8px; font-size: 16px;">
+                        <div style="text-align: center">
+                            <i class="fas fa-check-circle"
+                                style="font-size: 48px; color: var(--accent); margin-bottom: 15px;"></i>
+                            <p>No critical issues detected</p>
+                            <p style="font-size: 14px; color: var(--gray);">All cameras and sensors are functioning
+                                normally</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container"
+                    style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                    <div class="chart-header">
+                        <h3>Recent Alerts</h3>
+                    </div>
+                    <div class="detection-list">
+                        <div class="detection-item">
+                            <div class="detection-icon icon-crowd">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Crowd Formation Detected</h4>
+                                <p>Main Entrance - Area A</p>
+                            </div>
+                            <div class="detection-time">10:24 AM</div>
+                        </div>
+
+                        <div class="detection-item">
+                            <div class="detection-icon icon-fire">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Fire Alert</h4>
+                                <p>Kitchen - Building B</p>
+                            </div>
+                            <div class="detection-time">9:45 AM</div>
+                        </div>
+
+                        <div class="detection-item">
+                            <div class="detection-icon icon-fall">
+                                <i class="fas fa-user-fall"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Person Fall Detected</h4>
+                                <p>Staircase - Floor 3</p>
+                            </div>
+                            <div class="detection-time">8:30 AM</div>
+                        </div>
+
+                        <div class="detection-item">
+                            <div class="detection-icon icon-scream">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Audio Distress Signal</h4>
+                                <p>Parking Lot - Section C</p>
+                            </div>
+                            <div class="detection-time">8:15 AM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Monitoring Section -->
+        <div id="monitoring" class="dashboard-section">
+            <div class="section-header">
+                <h2>Live Monitoring</h2>
+                <div class="camera-select">
+                    <select>
+                        <option>Main Entrance Camera</option>
+                        <option>Parking Lot Camera</option>
+                        <option>Lobby Camera</option>
+                        <option>Building B Camera</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <video id="cctvFeed" autoplay muted playsinline></video>
+
+                <div class="detection-overlay">
+                    <div class="status-indicator">
+                        <div class="status-dot status-safe"></div>
+                        Status: <span id="cameraStatus">Active</span>
+                    </div>
+                    <div class="detection-stats">
+                        <div class="stat-box">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Incidents</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="peopleCount">0</div>
+                            <div class="stat-label">People</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Alerts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="camera-controls">
+                    <button id="toggleCamera" class="control-btn">
+                        <i class="fas fa-power-off"></i> Stop Camera
+                    </button>
+                    <button id="captureBtn" class="control-btn">
+                        <i class="fas fa-camera"></i> Capture
+                    </button>
+                </div>
+            </div>
+
+            <div class="detection-list">
+                <h3>Detection Log</h3>
+                <div class="detection-item">
+                    <div class="detection-icon icon-crowd">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Crowd Formation Detected</h4>
+                        <p>Main Entrance - Area A</p>
+                    </div>
+                    <div class="detection-time">10:24 AM</div>
+                </div>
+
+                <div class="detection-item">
+                    <div class="detection-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Person Detected</h4>
+                        <p>Main Entrance - Area B</p>
+                    </div>
+                    <div class="detection-time">10:22 AM</div>
+                </div>
+
+                <div class="detection-item">
+                    <div class="detection-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Vehicle Entered</h4>
+                        <p>Parking Lot - Section C</p>
+                    </div>
+                    <div class="detection-time">10:18 AM</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload & Analyze Section -->
+        <div id="upload" class="dashboard-section">
+            <div class="section-header">
+                <h2>Upload & Analyze Video</h2>
+            </div>
+
+            <div class="upload-container" id="dropZone">
+                <input type="file" id="videoUpload" accept="video/*" style="display:none">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="upload-text">
+                    <h3>Upload Video for Analysis</h3>
+                    <p>Drag & drop a video file here or click to browse</p>
+                    <button class="btn" id="uploadBtn">
+                        <i class="fas fa-folder-open"></i> Choose File
+                    </button>
+                </div>
+                <div class="upload-progress">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <span class="progress-text">0% uploaded</span>
+                </div>
+                <video id="videoPreview" controls style="display:none; width:100%; margin-top:20px"></video>
+            </div>
+
+            <div class="detection-options">
+                <div class="option-card" data-type="fire">
+                    <i class="fas fa-fire"></i>
+                    <h4>Fire Detection</h4>
+                </div>
+                <div class="option-card active" data-type="crash">
+                    <i class="fas fa-car-crash"></i>
+                    <h4>Crash Detection</h4>
+                </div>
+                <div class="option-card" data-type="fall">
+                    <i class="fas fa-user-fall"></i>
+                    <h4>Fall Detection</h4>
+                </div>
+                <div class="option-card" data-type="crowd">
+                    <i class="fas fa-users"></i>
+                    <h4>Crowd Detection</h4>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px">
+                <button class="btn" id="startAnalysisBtn" style="padding: 12px 40px; font-size: 16px">
+                    <i class="fas fa-play-circle"></i> Start Analysis
+                </button>
+            </div>
+
+            <!-- Analysis Result Display -->
+            <div id="analysisResult">
+                <h3>Analysis Result</h3>
+                <img id="resultImage">
+                <p id="resultMessage"></p>
+            </div>
+        </div>
+
+        <!-- Alert Logs Section -->
+        <div id="alerts" class="dashboard-section">
+            <div class="section-header">
+                <h2>Alert Logs</h2>
+                <div class="date-range">
+                    <select>
+                        <option>Today</option>
+                        <option>Last 24 Hours</option>
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="alert-filters" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="filter-btn active"
+                    style="background: #f1f3f4; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 14px;">All
+                    Alerts</button>
+                <button class="filter-btn"
+                    style="background: #f1f3f4; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 14px;">Fire</button>
+                <button class="filter-btn"
+                    style="background: #f1f3f4; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 14px;">Crashes</button>
+                <button class="filter-btn"
+                    style="background: #f1f3f4; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 14px;">Falls</button>
+            </div>
+
+            <table class="alert-table"
+                style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);">
+                <thead>
+                    <tr>
+                        <th
+                            style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: var(--dark); border-bottom: 1px solid #eee;">
+                            Time</th>
+                        <th
+                            style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: var(--dark); border-bottom: 1px solid #eee;">
+                            Alert Type</th>
+                        <th
+                            style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: var(--dark); border-bottom: 1px solid #eee;">
+                            Location</th>
+                        <th
+                            style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: var(--dark); border-bottom: 1px solid #eee;">
+                            Description</th>
+                        <th
+                            style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: var(--dark); border-bottom: 1px solid #eee;">
+                            Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Oct 15, 10:24 AM</td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;"><span
+                                style="display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 500; background: #e3f2fd; color: #0288d1;">Crowd</span>
+                        </td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Main Entrance</td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Unusual crowd formation detected</td>
+                        <td
+                            style="padding: 15px; border-bottom: 1px solid #eee; color: var(--warning); font-weight: 600;">
+                            Medium</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Oct 15, 9:45 AM</td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;"><span
+                                style="display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 500; background: #ffebee; color: #c62828;">Fire</span>
+                        </td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Kitchen, Building B</td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Possible fire detected</td>
+                        <td
+                            style="padding: 15px; border-bottom: 1px solid #eee; color: var(--danger); font-weight: 600;">
+                            High</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px;">Oct 14, 4:20 PM</td>
+                        <td style="padding: 15px;"><span
+                                style="display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 500; background: #fff3e0; color: #e65100;">Crash</span>
+                        </td>
+                        <td style="padding: 15px;">Parking Lot</td>
+                        <td style="padding: 15px;">Vehicle collision detected</td>
+                        <td style="padding: 15px; color: var(--danger); font-weight: 600;">High</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics" class="dashboard-section">
+            <div class="section-header">
+                <h2>Analytics & Insights</h2>
+                <div class="date-range">
+                    <select>
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="analytics-grid"
+                style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+                <div class="chart-container"
+                    style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                    <div class="chart-header">
+                        <h3>Incidents by Type</h3>
+                    </div>
+                    <canvas id="incidentChart" height="300"></canvas>
+                </div>
+
+                <div class="chart-container"
+                    style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                    <div class="chart-header">
+                        <h3>Alerts Over Time</h3>
+                    </div>
+                    <canvas id="alertChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== MAIN APPLICATION CONTROLLER ====================
+        class DashboardApp {
+            constructor() {
+                this.initializeApp();
+                this.uploadedVideo = null;
+            }
+
+            initializeApp() {
+                this.setupNavigation();
+                this.setupUIComponents();
+                this.setupTimeDisplay();
+                this.setupSidebar();
+                this.setupFileUpload();
+                this.setupAnalysis();
+                this.setupCameraControls();
+                this.setupCharts();
+            }
+
+            // ==================== NAVIGATION SYSTEM ====================
+            setupNavigation() {
+                const navLinks = document.querySelectorAll('.nav-links a');
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.handleNavigation(link);
+                    });
+                });
+
+                // Initialize first section
+                const defaultSection = document.querySelector('.dashboard-section.active');
+                if (defaultSection) {
+                    this.activateSection(defaultSection.id);
+                }
+            }
+
+            handleNavigation(link) {
+                // Update active nav link
+                document.querySelectorAll('.nav-links a').forEach(a => {
+                    a.classList.remove('active');
+                });
+                link.classList.add('active');
+
+                // Get target section
+                const sectionId = link.getAttribute('data-section');
+                this.activateSection(sectionId);
+            }
+
+            activateSection(sectionId) {
+                // Hide all sections
+                document.querySelectorAll('.dashboard-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show target section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+            }
+
+            // ==================== UI COMPONENTS ====================
+            setupUIComponents() {
+                // Option cards
+                document.querySelectorAll('.option-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        document.querySelectorAll('.option-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
+                        card.classList.add('active');
+                    });
+                });
+
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.filter-btn').forEach(b => {
+                            b.classList.remove('active');
+                        });
+                        btn.classList.add('active');
+                    });
+                });
+            }
+
+            // ==================== TIME DISPLAY ====================
+            setupTimeDisplay() {
+                this.updateKathmanduTime();
+            }
+
+            updateKathmanduTime() {
+                const now = new Date();
+                const offset = 5.75 * 60 * 60 * 1000; // UTC+5:45
+                const kathmanduTime = new Date(now.getTime() + offset);
+
+                // Format date and time
+                const dateStr = kathmanduTime.toISOString().split('T')[0];
+                const timeStr = kathmanduTime.toTimeString().substring(0, 8);
+
+                // Update DOM
+                document.getElementById('kathmandu-date').textContent = dateStr;
+                document.getElementById('kathmandu-time').textContent = timeStr;
+
+                // Update every second
+                setTimeout(() => this.updateKathmanduTime(), 1000);
+            }
+
+            // ==================== SIDEBAR CONTROLS ====================
+            setupSidebar() {
+                const sidebarToggle = document.querySelector('.sidebar-toggle');
+                const sidebar = document.querySelector('.sidebar');
+
+                if (sidebarToggle && sidebar) {
+                    sidebarToggle.addEventListener('click', () => {
+                        sidebar.classList.toggle('collapsed');
+                    });
+                }
+            }
+
+            // ==================== FILE UPLOAD SYSTEM ====================
+            setupFileUpload() {
+                const dropZone = document.getElementById('dropZone');
+                if (!dropZone) return;
+
+                const handlers = {
+                    preventDefaults: (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    },
+                    highlight: () => dropZone.classList.add('highlight'),
+                    unhighlight: () => dropZone.classList.remove('highlight'),
+                    handleDrop: (e) => {
+                        const dt = e.dataTransfer;
+                        const files = dt.files;
+                        this.handleFiles({ target: { files } });
+                    },
+                    handleFiles: (e) => {
+                        const files = e.target.files;
+                        if (files.length) {
+                            const file = files[0];
+                            if (!file.type.match('video.*')) {
+                                alert('Please select a video file');
+                                return;
+                            }
+                            this.uploadedVideo = file;
+                            this.previewVideo(file);
+                        }
+                    }
+                };
+
+                // Add event listeners
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, handlers.preventDefaults, false);
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, handlers.highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, handlers.unhighlight, false);
+                });
+
+                dropZone.addEventListener('drop', handlers.handleDrop);
+                document.getElementById('videoUpload').addEventListener('change', handlers.handleFiles);
+                document.getElementById('uploadBtn').addEventListener('click', () => {
+                    document.getElementById('videoUpload').click();
+                });
+            }
+
+            previewVideo(file) {
+                const videoPreview = document.getElementById('videoPreview');
+                if (videoPreview) {
+                    videoPreview.src = URL.createObjectURL(file);
+                    videoPreview.style.display = 'block';
+                }
+            }
+
+            // ==================== ANALYSIS SYSTEM ====================
+            setupAnalysis() {
+                const startBtn = document.getElementById('startAnalysisBtn');
+                if (!startBtn) return;
+
+                startBtn.addEventListener('click', () => {
+                    if (!this.uploadedVideo) {
+                        alert('Please upload a video first');
+                        return;
+                    }
+
+                    const activeCard = document.querySelector('.option-card.active');
+                    if (!activeCard) {
+                        alert('Please select an analysis type');
+                        return;
+                    }
+
+                    const analysisType = activeCard.dataset.type;
+                    if (analysisType === 'crash') {
+                        this.analyzeCrash();
+                    } else {
+                        alert('Analysis type not implemented yet');
+                    }
+                });
+            }
+
+            analyzeCrash() {
+                if (!this.uploadedVideo) {
+                    alert('Please upload a video first');
+                    return;
+                }
+
+                const progressContainer = document.querySelector('.upload-progress');
+                const progressBar = document.querySelector('.progress');
+                const progressText = document.querySelector('.progress-text');
+
+                progressContainer.style.display = 'block';
+                progressBar.style.width = '0%';
+                progressText.textContent = '0% analyzing...';
+
+                // Simulate analysis progress
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 5;
+                    if (progress <= 100) {
+                        progressBar.style.width = `${progress}%`;
+                        progressText.textContent = `${progress}% analyzing...`;
+                    }
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                            this.showAnalysisResult();
+                        }, 500);
+                    }
+                }, 200);
+            }
+
+            showAnalysisResult() {
+                const resultImage = document.getElementById('resultImage');
+                const resultMessage = document.getElementById('resultMessage');
+                const analysisResult = document.getElementById('analysisResult');
+
+                // Random result for demo
+                const crashDetected = Math.random() > 0.3;
+
+                if (crashDetected) {
+                    resultImage.src = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80';
+                    resultImage.style.display = 'block';
+                    resultMessage.textContent = 'Crash detected!';
+                    resultMessage.style.color = 'var(--danger)';
+                } else {
+                    resultImage.style.display = 'none';
+                    resultMessage.textContent = 'No crash detected';
+                    resultMessage.style.color = 'var(--accent)';
+                }
+
+                analysisResult.style.display = 'block';
+
+                // Scroll to results
+                analysisResult.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // ==================== CAMERA CONTROLS ====================
+            setupCameraControls() {
+                const video = document.getElementById('cctvFeed');
+                const toggleBtn = document.getElementById('toggleCamera');
+                const captureBtn = document.getElementById('captureBtn');
+                const peopleCount = document.getElementById('peopleCount');
+
+                if (!video || !toggleBtn) return;
+
+                let stream = null;
+                let detectionInterval = null;
+                let cameraActive = false;
+
+                const camera = {
+                    start: async () => {
+                        try {
+                            // For demo, we'll use a placeholder video
+                            video.src = 'https://assets.codepen.io/3364143/screen.mp4';
+                            video.style.display = 'block';
+                            cameraActive = true;
+                            this.updateCameraUI(true);
+                            this.startDetection();
+                        } catch (err) {
+                            console.error('Camera error:', err);
+                            alert(`Could not access camera: ${err.message}`);
+                        }
+                    },
+                    stop: () => {
+                        video.src = '';
+                        video.style.display = 'none';
+                        cameraActive = false;
+                        this.stopDetection();
+                        this.updateCameraUI(false);
+                    },
+                    capture: () => {
+                        if (!cameraActive) return;
+
+                        const canvas = document.createElement('canvas');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        const ctx = canvas.getContext('2d');
+
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        ctx.font = '16px Arial';
+                        ctx.fillStyle = 'white';
+                        ctx.fillText(new Date().toLocaleString(), 10, 20);
+
+                        const link = document.createElement('a');
+                        link.download = `cctv-${new Date().toISOString().slice(0, 10)}.jpg`;
+                        link.href = canvas.toDataURL('image/jpeg');
+                        link.click();
+                    },
+                    updateUI: (isActive) => {
+                        const statusText = document.getElementById('cameraStatus');
+                        const statusDot = document.querySelector('.status-dot');
+
+                        if (isActive) {
+                            statusText.textContent = 'Active';
+                            statusDot.className = 'status-dot status-safe';
+                            toggleBtn.innerHTML = '<i class="fas fa-power-off"></i> Stop Camera';
+                            captureBtn.disabled = false;
+                        } else {
+                            statusText.textContent = 'Inactive';
+                            statusDot.className = 'status-dot';
+                            toggleBtn.innerHTML = '<i class="fas fa-power-off"></i> Start Camera';
+                            captureBtn.disabled = true;
+                            peopleCount.textContent = '0';
+                        }
+                    },
+                    startDetection: () => {
+                        detectionInterval = setInterval(() => {
+                            const randomCount = Math.floor(Math.random() * 5);
+                            peopleCount.textContent = randomCount;
+                        }, 3000);
+                    },
+                    stopDetection: () => {
+                        if (detectionInterval) {
+                            clearInterval(detectionInterval);
+                            detectionInterval = null;
+                        }
+                    }
+                };
+
+                // Assign methods to instance
+                this.updateCameraUI = camera.updateUI;
+                this.startDetection = camera.startDetection;
+                this.stopDetection = camera.stopDetection;
+
+                // Add event listeners
+                toggleBtn.addEventListener('click', async () => {
+                    if (cameraActive) {
+                        await camera.stop();
+                    } else {
+                        await camera.start();
+                    }
+                });
+
+                captureBtn.addEventListener('click', camera.capture);
+            }
+
+            // ==================== CHARTS ====================
+            setupCharts() {
+                // Incident type chart
+                const incidentCtx = document.getElementById('incidentChart').getContext('2d');
+                new Chart(incidentCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Fire', 'Crashes', 'Falls', 'Crowd', 'Other'],
+                        datasets: [{
+                            data: [15, 25, 10, 30, 20],
+                            backgroundColor: [
+                                '#ea4335',
+                                '#f57c00',
+                                '#ab47bc',
+                                '#0288d1',
+                                '#5f6368'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+
+                // Alert timeline chart
+                const alertCtx = document.getElementById('alertChart').getContext('2d');
+                new Chart(alertCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Alerts',
+                            data: [12, 19, 15, 8, 11, 6, 14],
+                            borderColor: '#1a73e8',
+                            backgroundColor: 'rgba(26, 115, 232, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new DashboardApp();
+        });
+    </script>
+</body>
+
+</html>
