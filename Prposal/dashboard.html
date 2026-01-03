@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart Surveillance Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans">
+    <!-- Navbar -->
+    <header class="bg-red shadow p-4 flex justify-between items-center">
+      <h1 class="text-4xl font-bold text-blue-700">
+        Smart Surveillance System
+      </h1>
+      <nav class="space-x-4">
+        <a href="#" class="text-gray-600 hover:text-blue-700">Dashboard</a>
+        <a href="#" class="text-gray-600 hover:text-blue-700">Live Feed</a>
+        <a href="#" class="text-gray-600 hover:text-blue-700">Events</a>
+        <a href="#" class="text-gray-600 hover:text-blue-700">Settings</a>
+        <a href="#" class="text-gray-600 hover:text-blue-700">Alert History</a>
+        <a href="#" class="text-gray-600 hover:text-blue-700">Notification</a>
+        <a href="#" class="text-gray-600 hover:text-blue-700">About Us</a>
+      </nav>
+    </header>
+
+    <!-- Overview Cards -->
+    <section class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-white shadow rounded-lg p-5">
+        <h2 class="text-sm text-gray-500">Active Cameras</h2>
+        <p class="text-3xl font-semibold text-blue-600">12</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-5">
+        <h2 class="text-sm text-gray-500">Detections Today</h2>
+        <p class="text-3xl font-semibold text-green-600">87</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-5">
+        <h2 class="text-sm text-gray-500">Critical Alerts</h2>
+        <p class="text-3xl font-semibold text-red-600">5</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-5">
+        <div class="bg-white shadow rounded-lg p-5">
+          <h2 class="text-sm text-gray-500">Last Updated</h2>
+          <p id="kathmandu-time" class="text-xl text-gray-700">Loading...</p>
+        </div>
+
+        <!-- Add this script just before </body> -->
+        <script>
+          function updateKathmanduTime() {
+            const options = {
+              timeZone: "Asia/Kathmandu",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: true,
+            };
+            const timeString = new Date().toLocaleTimeString("en-US", options);
+            document.getElementById("kathmandu-time").textContent = timeString;
+          }
+
+          updateKathmanduTime(); // initial call
+          setInterval(updateKathmanduTime, 1000); // update every second
+        </script>
+      </div>
+    </section>
+
+    <!-- Live Feed and Map -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 px-6 pb-6">
+      <div class="bg-white shadow rounded-lg p-5">
+        <h2 class="text-lg font-semibold mb-3">Live Feed (Cam-1)</h2>
+        <div
+          class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500"
+        >
+          <p>🔴 Live Video Stream</p>
+        </div>
+      </div>
+
+    <div class="aspect-video">
+  <iframe
+    class="w-full h-full rounded-lg border-0"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.0300607293586!2d87.27256901488323!3d26.812170083160453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef41d3e2f84c41%3A0x52b3a2b3e7dc3192!2sDharan!5e0!3m2!1sen!2snp!4v1661234567890"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
+
+
+    <!-- Event Logs -->
+    <section class="px-6 pb-10">
+      <div class="bg-white shadow rounded-lg p-5">
+        <h2 class="text-lg font-semibold mb-3">Recent Events</h2>
+        <table class="w-full text-left table-auto">
+          <thead>
+            <tr class="text-sm text-gray-500 border-b">
+              <th class="py-2">Time</th>
+              <th>Camera</th>
+              <th>Object</th>
+              <th>Confidence</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr class="border-b">
+              <td class="py-2">10:21 AM</td>
+              <td>Cam-3</td>
+              <td>Person</td>
+              <td>94%</td>
+              <td class="text-red-500 font-semibold">Alert Sent</td>
+            </tr>
+            <tr class="border-b">
+              <td class="py-2">10:15 AM</td>
+              <td>Cam-1</td>
+              <td>Vehicle</td>
+              <td>88%</td>
+              <td class="text-green-500">Safe</td>
+            </tr>
+            <tr>
+              <td class="py-2">10:05 AM</td>
+              <td>Cam-2</td>
+              <td>Unknown Object</td>
+              <td>67%</td>
+              <td class="text-yellow-500">Review Needed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>
