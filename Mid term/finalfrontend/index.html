@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartZone AI - Safety Monitoring Dashboard</title>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <!-- Add this button as the first element inside sidebar -->
+        <div class="sidebar-toggle">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="logo">
+            <img src="finalfrontend\download (1).png" alt="SmartZone AI Logo" />
+            <h1>Smart<span>Zone</span> AI</h1>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="#" class="active" data-section="home"><i class="fas fa-home"></i> <span>Home</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="monitoring"><i class="fas fa-video"></i> <span>Live Monitoring</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="upload"><i class="fas fa-cloud-upload-alt"></i>
+                    <span>Upload Video</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="alerts"><i class="fas fa-bell"></i> <span>Alert Logs</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="analytics"><i class="fas fa-chart-bar"></i> <span>Analytics</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="settings"><i class="fas fa-cog"></i> <span>Settings</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="admin"><i class="fas fa-user-shield"></i> <span>Admin Panel</span></a>
+            </li>
+            <li>
+                <a href="#" data-section="about"><i class="fas fa-info-circle"></i> <span>About & Help</span></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="dashboardSearch" placeholder="Search incidents, alerts, cameras..." />
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <div class="search-results-header">
+                        <span>Search Results</span>
+                        <button class="close-results">&times;</button>
+                    </div>
+                    <div class="results-container"></div>
+                </div>
+            </div>
+            <!-- ... rest of your header ... -->
+        </header>
+
+        <!-- Dashboard Sections -->
+        <div id="home" class="dashboard-section active">
+            <div class="section-header">
+                <h2>Dashboard Overview</h2>
+                <div class="date-display">2025-08-09</div>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>System Status</h3>
+                    </div>
+                    <div class="status-display">
+                        <div class="status-indicator">
+                            <div class="status-dot status-safe"></div>
+                            All Systems Operational
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div style="text-align: center">
+                            <i class="fas fa-check-circle" style="
+                    font-size: 48px;
+                    color: var(--accent);
+                    margin-bottom: 15px;
+                  "></i>
+                            <p>No critical issues detected</p>
+                            <p class="small">
+                                All cameras and sensors are functioning normally
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Recent Alerts</h3>
+                    </div>
+                    <div class="detection-list">
+                        <div class="detection-item">
+                            <div class="detection-icon icon-crowd">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Crowd Formation Detected</h4>
+                                <p>Main Entrance - Area A</p>
+                            </div>
+                            <div class="detection-time">10:24 AM</div>
+                        </div>
+
+                        <div class="detection-item">
+                            <div class="detection-icon icon-fire">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Fire Alert</h4>
+                                <p>Kitchen - Building B</p>
+                            </div>
+                            <div class="detection-time">9:45 AM</div>
+                        </div>
+
+                        <div class="detection-item">
+                            <div class="detection-icon icon-fall">
+                                <i class="fas fa-user-fall"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Person Fall Detected</h4>
+                                <p>Staircase - Floor 3</p>
+                            </div>
+                            <div class="detection-time">8:30 AM</div>
+                        </div>
+
+                        <div class="detection-item">
+                            <div class="detection-icon icon-scream">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="detection-info">
+                                <h4>Audio Distress Signal</h4>
+                                <p>Parking Lot - Section C</p>
+                            </div>
+                            <div class="detection-time">8:15 AM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Monitoring Section -->
+        <div id="monitoring" class="dashboard-section">
+            <div class="section-header">
+                <h2>Live Monitoring</h2>
+                <div class="camera-select">
+                    <select>
+                        <option>Main Entrance Camera</option>
+                        <option>Dharan</option>
+                        <option>Itahari</option>
+                        <option>Janakpur</option>
+                        <option>Kathmandu</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <!-- Video Feed (hidden initially) -->
+                <video id="cctvFeed" autoplay muted playsinline style="display:none;"></video>
+
+                <!-- Camera Off Placeholder -->
+                <div class="camera-off-placeholder" id="cameraPlaceholder">
+                    <i class="fas fa-video-slash"></i>
+                    <p>Camera is currently offline</p>
+                </div>
+
+                <!-- Detection Overlay -->
+                <div class="detection-overlay">
+                    <div class="status-indicator">
+                        <div class="status-dot" id="statusDot"></div>
+                        Status: <span id="cameraStatus">Inactive</span>
+                    </div>
+                    <div class="detection-stats">
+                        <div class="stat-box">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Incidents</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="peopleCount">0</div>
+                            <div class="stat-label">People</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Alerts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera Controls -->
+                <div class="camera-controls">
+                    <button id="toggleCamera" class="control-btn">
+                        <i class="fas fa-power-off"></i> Start Camera
+                    </button>
+                    <button id="captureBtn" class="control-btn" disabled>
+                        <i class="fas fa-camera"></i> Capture
+                    </button>
+                </div>
+            </div>
+
+            <div class="detection-list">
+                <h3>Detection Log</h3>
+                <div class="detection-item">
+                    <div class="detection-icon icon-crowd">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Crowd Formation Detected</h4>
+                        <p>Main Entrance - Area A</p>
+                    </div>
+                    <div class="detection-time">10:24 AM</div>
+                </div>
+
+                <div class="detection-item">
+                    <div class="detection-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Person Detected</h4>
+                        <p>Main Entrance - Area B</p>
+                    </div>
+                    <div class="detection-time">10:22 AM</div>
+                </div>
+
+                <div class="detection-item">
+                    <div class="detection-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Vehicle Entered</h4>
+                        <p>Parking Lot - Section C</p>
+                    </div>
+                    <div class="detection-time">10:18 AM</div>
+                </div>
+
+                <div class="detection-item">
+                    <div class="detection-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Person Detected</h4>
+                        <p>Main Entrance - Area A</p>
+                    </div>
+                    <div class="detection-time">10:15 AM</div>
+                </div>
+
+                <div class="detection-item">
+                    <div class="detection-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <div class="detection-info">
+                        <h4>Person Detected</h4>
+                        <p>Main Entrance - Area A</p>
+                    </div>
+                    <div class="detection-time">10:12 AM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload & Analyze Section -->
+    <div id="upload" class="dashboard-section">
+        <div class="section-header">
+            <h2>Upload & Analyze Video</h2>
+        </div>
+
+        <div class="upload-container" id="dropZone">
+            <input type="file" id="videoUpload" accept="video/*" style="display:none">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <div class="upload-text">
+                <h3>Upload Video for Analysis</h3>
+                <p>Drag & drop a video file here or click to browse</p>
+                <button class="btn" id="uploadBtn">
+                    <i class="fas fa-folder-open"></i> Choose File
+                </button>
+            </div>
+            <div class="upload-progress" style="display:none">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <span class="progress-text">0% uploaded</span>
+            </div>
+            <video id="videoPreview" controls style="display:none; width:100%; margin-top:20px"></video>
+        </div>
+
+        <div class="detection-options">
+            <div class="option-card active">
+                <i class="fas fa-fire"></i>
+                <h4>Fire Detection</h4>
+            </div>
+            <div class="option-card">
+                <i class="fas fa-car-crash"></i>
+                <h4>Crash Detection</h4>
+            </div>
+            <div class="option-card">
+                <i class="fas fa-user-fall"></i>
+                <h4>Fall Detection</h4>
+            </div>
+            <div class="option-card">
+                <i class="fas fa-users"></i>
+                <h4>Crowd Detection</h4>
+            </div>
+            <div class="option-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h4>Audio Analysis</h4>
+            </div>
+            <div class="option-card">
+                <i class="fas fa-search"></i>
+                <h4>Full Analysis</h4>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px">
+            <button class="btn" style="padding: 12px 40px; font-size: 16px">
+                <i class="fas fa-play-circle"></i> Start Analysis
+            </button>
+        </div>
+    </div>
+
+    <!-- Alert Logs Section -->
+    <div id="alerts" class="dashboard-section">
+        <div class="section-header">
+            <h2>Alert Logs</h2>
+            <div class="date-range">
+                <select>
+                    <option>Today</option>
+                    <option>Last 24 Hours</option>
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                    <option>Custom Range</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="alert-filters">
+            <button class="filter-btn active">All Alerts</button>
+            <button class="filter-btn">Fire</button>
+            <button class="filter-btn">Crashes</button>
+            <button class="filter-btn">Falls</button>
+            <button class="filter-btn">Crowd</button>
+            <button class="filter-btn">Audio</button>
+            <button class="filter-btn">High Severity</button>
+        </div>
+
+        <table class="alert-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Alert Type</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Severity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Aug 6, 10:24 AM</td>
+                    <td><span class="alert-type type-crowd">Crowd</span></td>
+                    <td>Main Entrance</td>
+                    <td>Unusual crowd formation detected</td>
+                    <td class="severity-medium">Medium</td>
+                </tr>
+                <tr>
+                    <td>Aug 6, 9:45 AM</td>
+                    <td><span class="alert-type type-fire">Fire</span></td>
+                    <td>Kitchen, Building B</td>
+                    <td>Possible fire detected</td>
+                    <td class="severity-high">High</td>
+                </tr>
+                <tr>
+                    <td>Aug 6, 8:30 AM</td>
+                    <td><span class="alert-type type-fall">Fall</span></td>
+                    <td>Staircase, Floor 3</td>
+                    <td>Person fall detected</td>
+                    <td class="severity-high">High</td>
+                </tr>
+                <tr>
+                    <td>Aug 6, 8:15 AM</td>
+                    <td><span class="alert-type type-fire">Audio</span></td>
+                    <td>Parking Lot, Section C</td>
+                    <td>Distress sound detected</td>
+                    <td class="severity-medium">Medium</td>
+                </tr>
+                <tr>
+                    <td>Aug 5, 4:20 PM</td>
+                    <td><span class="alert-type type-fire">Fire</span></td>
+                    <td>Electrical Room</td>
+                    <td>Smoke detected</td>
+                    <td class="severity-high">High</td>
+                </tr>
+                <tr>
+                    <td>Aug 5, 2:45 PM</td>
+                    <td><span class="alert-type type-crowd">Crowd</span></td>
+                    <td>Lobby Area</td>
+                    <td>Large crowd gathering</td>
+                    <td class="severity-low">Low</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Analytics Section -->
+    <div id="analytics" class="dashboard-section">
+        <div class="section-header">
+            <h2>Analytics & Insights</h2>
+            <div class="date-range">
+                <select>
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                    <option>Last 90 Days</option>
+                    <option>Year to Date</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="analytics-grid">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Incidents by Type</h3>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-pie" style="font-size: 48px"></i>
+                    <p>Incident Type Distribution Chart</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Alerts Over Time</h3>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line" style="font-size: 48px"></i>
+                    <p>Alert Timeline Chart</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Detection Accuracy</h3>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-bar" style="font-size: 48px"></i>
+                    <p>Accuracy Metrics Chart</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Location Analysis</h3>
+                        <div class="map-controls">
+                            <select id="mapLayer">
+                                <option value="heatmap">Heatmap</option>
+                                <option value="markers">Markers</option>
+                                <option value="clusters">Clusters</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="map" style="height: 400px; border-radius: 8px;"></div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-map-marker-alt" style="font-size: 48px"></i>
+                    <p>Location Heatmap</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div id="settings" class="dashboard-section">
+        <div class="section-header">
+            <h2>System Settings</h2>
+        </div>
+
+        <div class="settings-grid">
+            <div class="setting-card">
+                <h3>Notification Settings</h3>
+                <div class="form-group">
+                    <label>Notification Methods</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="emailToggle" checked />
+                        <label for="emailToggle" class="slider"></label>
+                    </div>
+                    <span>Email Notifications</span>
+                </div>
+                <div class="form-group">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="smsToggle" checked />
+                        <label for="smsToggle" class="slider"></label>
+                    </div>
+                    <span>SMS Notifications</span>
+                </div>
+                <div class="form-group">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="pushToggle" checked />
+                        <label for="pushToggle" class="slider"></label>
+                    </div>
+                    <span>Push Notifications</span>
+                </div>
+                <div class="form-group">
+                    <label>Email Addresses</label>
+                    <input type="text" placeholder="Enter comma separated emails" />
+                </div>
+                <div class="form-group">
+                    <label>Phone Numbers</label>
+                    <input type="text" placeholder="Enter comma separated phone numbers" />
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <h3>Detection Thresholds</h3>
+                <div class="form-group">
+                    <label>Fire Detection Sensitivity</label>
+                    <input type="range" min="1" max="10" value="7" />
+                </div>
+                <div class="form-group">
+                    <label>Fall Detection Sensitivity</label>
+                    <input type="range" min="1" max="10" value="8" />
+                </div>
+                <div class="form-group">
+                    <label>Crowd Size Threshold</label>
+                    <input type="number" value="10" />
+                </div>
+                <div class="form-group">
+                    <label>Audio Analysis Sensitivity</label>
+                    <input type="range" min="1" max="10" value="6" />
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <h3>Camera Configuration</h3>
+                <div class="form-group">
+                    <label>Camera Feed Source</label>
+                    <select>
+                        <option>IP Camera</option>
+                        <option>RTSP Stream</option>
+                        <option>Webcam</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Camera IP Address</label>
+                    <input type="text" value="192.168.1.100" />
+                </div>
+                <div class="form-group">
+                    <label>RTSP Stream URL</label>
+                    <input type="text" placeholder="rtsp://example.com/stream" />
+                </div>
+                <div class="form-group">
+                    <label>Connection Port</label>
+                    <input type="number" value="554" />
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <h3>API Configuration</h3>
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="text" value="sk_*****e8f9a7b3c4d5e6f" readonly />
+                </div>
+                <div class="form-group">
+                    <label>API Endpoint</label>
+                    <input type="text" value="https://api.smartzone.ai/v1" />
+                </div>
+                <div class="form-group">
+                    <label>Request Timeout (ms)</label>
+                    <input type="number" value="5000" />
+                </div>
+                <div class="form-group">
+                    <label>Max Retries</label>
+                    <input type="number" value="3" />
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px">
+            <button class="btn" style="padding: 12px 40px; font-size: 16px">
+                <i class="fas fa-save"></i> Save Settings
+            </button>
+        </div>
+    </div>
+
+    <!-- Admin Panel Section -->
+    <div id="admin" class="dashboard-section">
+        <div class="section-header">
+            <h2>Admin Panel</h2>
+        </div>
+
+        <div class="settings-grid">
+            <div class="setting-card">
+                <h3>User Management</h3>
+                <div class="form-group">
+                    <label>Add New User</label>
+                    <input type="text" placeholder="Enter email address" />
+                </div>
+                <div class="form-group">
+                    <label>User Role</label>
+                    <select>
+                        <option>Administrator</option>
+                        <option>Operator</option>
+                        <option>Viewer</option>
+                    </select>
+                </div>
+                <button class="btn" style="width: 100%; margin-top: 10px">
+                    <i class="fas fa-user-plus"></i> Add User
+                </button>
+
+                <div style="margin-top: 25px">
+                    <h4>Current Users</h4>
+                    <ul style="list-style: none; margin-top: 15px">
+                        <li style="padding: 10px 0; border-bottom: 1px solid #eee">
+                            <strong>admin@smartzone.ai</strong> - Administrator
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid #eee">
+                            <strong>operator@smartzone.ai</strong> - Operator
+                        </li>
+                        <li style="padding: 10px 0">
+                            <strong>viewer@smartzone.ai</strong> - Viewer
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <h3>System Logs</h3>
+                <div class="log-container" style="
+                height: 400px;
+                overflow-y: auto;
+                background: #f8f9fa;
+                border-radius: 8px;
+                padding: 15px;
+                font-family: monospace;
+                font-size: 14px;
+              ">
+                    <p>[2025-08-06 10:25:32] INFO: System started successfully</p>
+                    <p>
+                        [2025-08-06 10:24:15] WARNING: High CPU usage detected (92%)
+                    </p>
+                    <p>
+                        [2025-08-06 10:24:01] ALERT: Crowd formation detected at Main
+                        Entrance
+                    </p>
+                    <p>
+                        [2025-08-06 10:22:45] INFO: Camera feed restored: Parking Lot
+                    </p>
+                    <p>[2025-08-06 10:20:30] INFO: Security update applied</p>
+                    <p>
+                        [2025-08-06 09:45:22] ALERT: Fire detected in Kitchen, Building
+                        B
+                    </p>
+                    <p>[2025-08-06 09:40:10] INFO: Database backup completed</p>
+                    <p>[2025-08-06 09:30:05] INFO: User login: admin@smartzone.ai</p>
+                    <p>
+                        [2025-08-06 08:45:18] ERROR: Camera connection lost: Staircase 3
+                    </p>
+                    <p>
+                        [2025-08-06 08:30:45] ALERT: Person fall detected at Staircase,
+                        Floor 3
+                    </p>
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <h3>System Maintenance</h3>
+                <div class="form-group">
+                    <label>Database Status</label>
+                    <div class="status-indicator">
+                        <div class="status-dot status-safe"></div>
+                        Connected (32.5MB used)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Storage Status</label>
+                    <div class="status-indicator">
+                        <div class="status-dot status-safe"></div>
+                        245GB of 500GB available
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Backup Schedule</label>
+                    <select>
+                        <option>Daily at 2:00 AM</option>
+                        <option>Weekly on Sunday</option>
+                        <option>Monthly on 1st</option>
+                    </select>
+                </div>
+                <button class="btn" style="width: 100%; margin-top: 20px; background: #f57c00">
+                    <i class="fas fa-database"></i> Run Backup Now
+                </button>
+                <button class="btn" style="width: 100%; margin-top: 10px; background: #34a853">
+                    <i class="fas fa-sync-alt"></i> Check for Updates
+                </button>
+                <button class="btn" style="width: 100%; margin-top: 10px; background: var(--danger)">
+                    <i class="fas fa-power-off"></i> Restart System
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About & Help Section -->
+    <div id="about" class="dashboard-section">
+        <div class="section-header">
+            <h2>About & Help</h2>
+        </div>
+
+        <div class="about-container">
+            <div class="about-card">
+                <h3>About SmartZone AI</h3>
+                <p>
+                    SmartZone AI represents the cutting edge of intelligent safety monitoring systems, combining
+                    advanced computer vision, machine learning, and real-time analytics to create comprehensive
+                    security solutions for modern environments. Designed for both commercial and public sector
+                    applications, SmartZone AI transforms passive surveillance into proactive safety management.
+
+
+                </p>
+                <p>
+                    With cutting-edge computer vision and audio analysis algorithms,
+                    SmartZone AI helps organizations enhance safety, reduce response
+                    times, and prevent accidents before they escalate.
+                </p>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <strong>Website</strong>
+                            <p>www.smartzone.ai.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p>support@smartzone.ai.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>041-526026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h3>Getting Started</h3>
+                <p>To begin using SmartZone AI:</p>
+                <ol style="padding-left: 20px; margin: 15px 0; line-height: 1.8">
+                    <li>Configure your camera feeds in the Settings section</li>
+                    <li>Set up notification preferences for your team</li>
+                    <li>Adjust detection thresholds according to your environment</li>
+                    <li>Monitor real-time feeds in the Live Monitoring section</li>
+                    <li>Review alerts and analytics to improve safety protocols</li>
+                </ol>
+                <p>
+                    For optimal performance, ensure cameras have clear views of
+                    monitored areas and adequate lighting conditions.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>SmartZone AI Tutorial</h3>
+
+                <div class="about-card">
+                    <h3>System Tutorial</h3>
+
+                    <!-- Clickable Video Thumbnail -->
+                    <div class="video-thumbnail" id="videoThumbnail">
+                        <div class="thumbnail-image">
+                            <!-- Fallback if no poster image -->
+                            <div class="no-thumbnail">
+                                <i class="fas fa-video"></i>
+                            </div>
+                        </div>
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <p class="video-title">SmartZone AI Tutorial</p>
+                    </div>
+
+                    <!-- Video Player Modal -->
+                    <div class="video-modal" id="videoModal">
+                        <div class="modal-content">
+                            <video controls id="tutorialVideo">
+                                <source src="assets/videos/Media1.mp4" type="video/mp4">
+                                Your browser doesn't support HTML5 video.
+                            </video>
+                            <div class="video-controls">
+                                <button class="control-btn close-btn">
+                                    <i class="fas fa-times"></i> Close
+                                </button>
+                                <button class="control-btn fullscreen-btn">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-card">
+                    <h3>Frequently Asked Questions</h3>
+                    <div style="margin-top: 15px">
+                        <h4>How accurate is the detection system?</h4>
+                        <p>
+                            Our AI models achieve over 95% accuracy in controlled
+                            environments. Accuracy may vary based on camera quality and
+                            environmental factors.
+                        </p>
+
+                        <h4>Can I use multiple cameras?</h4>
+                        <p>
+                            Yes, SmartZone AI supports unlimited cameras. Add additional
+                            feeds in the Camera Configuration settings.
+                        </p>
+
+                        <h4>What are the system requirements?</h4>
+                        <p>
+                            SmartZone AI runs in modern web browsers. For best performance,
+                            we recommend Chrome or Firefox with hardware acceleration
+                            enabled.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <!-- JavaScript Files -->
+    <!-- Load Chart.js first if needed for other sections -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Your main dashboard scripts -->
+    <script src="script.js"></script>
+
+    <!-- Load Leaflet and plugins ONLY when needed -->
+    <script>
+        function loadMapDependencies() {
+            return new Promise((resolve) => {
+                if (window.L) return resolve(); // Already loaded
+
+                const script1 = document.createElement('script');
+                script1.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                script1.onload = () => {
+                    const script2 = document.createElement('script');
+                    script2.src = 'https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js';
+                    script2.onload = () => {
+                        const script3 = document.createElement('script');
+                        script3.src = 'https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js';
+                        script3.onload = resolve;
+                        document.body.appendChild(script3);
+                    };
+                    document.body.appendChild(script2);
+                };
+                document.body.appendChild(script1);
+            });
+        }
+
+        // Initialize map only when analytics section is clicked
+        document.addEventListener('DOMContentLoaded', function () {
+            const analyticsTab = document.querySelector('[data-section="analytics"]');
+            if (analyticsTab) {
+                analyticsTab.addEventListener('click', function () {
+                    loadMapDependencies().then(() => {
+                        if (!window.mapInitialized) {
+                            initMap();
+                            window.mapInitialized = true;
+                        }
+                    });
+                });
+            }
+
+            // Initialize the rest of your dashboard
+            initDashboard();
+        });
+    </script>
+
+    <script>
+        async function analyzeCrash(data) {
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            return await response.json();
+        }
+
+        // Example usage in your crash detection section
+        document.getElementById('crashAnalyzeBtn').addEventListener('click', async () => {
+            const videoFile = document.getElementById('crashVideo').files[0];
+            const analysisResult = await analyzeCrash({
+                video: videoFile.name,
+                // other parameters
+            });
+            displayResults(analysisResult);
+        });
+    </script>
+
+
+</body>
+</body>
+
+</html>
