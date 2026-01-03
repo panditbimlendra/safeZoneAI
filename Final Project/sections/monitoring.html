@@ -1,0 +1,89 @@
+<div id="monitoring" class="dashboard-section">
+    <div class="section-header">
+        <h2>Live Monitoring</h2>
+        <div class="camera-select">
+            <select>
+                <option>Main Entrance Camera</option>
+                <option>Dharan</option>
+                <option>Itahari</option>
+                <option>Janakpur</option>
+                <option>Kathmandu</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="video-container">
+        <video id="cctvFeed" autoplay muted playsinline style="display:none;"></video>
+
+        <div class="camera-off-placeholder" id="cameraPlaceholder">
+            <i class="fas fa-video-slash"></i>
+            <p>Camera is currently offline</p>
+        </div>
+
+        <div class="detection-overlay">
+            <div class="status-indicator">
+                <div class="status-dot" id="statusDot"></div>
+                Status: <span id="cameraStatus">Inactive</span>
+            </div>
+            <div class="detection-stats">
+                <div class="stat-box">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Incidents</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="peopleCount">0</div>
+                    <div class="stat-label">People</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Alerts</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="camera-controls">
+            <button id="toggleCamera" class="control-btn">
+                <i class="fas fa-power-off"></i> Start Camera
+            </button>
+            <button id="captureBtn" class="control-btn" disabled>
+                <i class="fas fa-camera"></i> Capture
+            </button>
+        </div>
+    </div>
+
+    <div class="detection-list">
+        <h3>Detection Log</h3>
+        <div class="detection-item">
+            <div class="detection-icon icon-crowd">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="detection-info">
+                <h4>Crowd Formation Detected</h4>
+                <p>Main Entrance - Area A</p>
+            </div>
+            <div class="detection-time">10:24 AM</div>
+        </div>
+
+        <div class="detection-item">
+            <div class="detection-icon">
+                <i class="fas fa-male"></i>
+            </div>
+            <div class="detection-info">
+                <h4>Person Detected</h4>
+                <p>Main Entrance - Area B</p>
+            </div>
+            <div class="detection-time">10:22 AM</div>
+        </div>
+
+        <div class="detection-item">
+            <div class="detection-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="detection-info">
+                <h4>Vehicle Entered</h4>
+                <p>Parking Lot - Section C</p>
+            </div>
+            <div class="detection-time">10:18 AM</div>
+        </div>
+    </div>
+</div>

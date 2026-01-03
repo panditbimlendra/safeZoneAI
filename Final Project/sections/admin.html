@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="admin.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="admin" class="dashboard-section">
+        <div class="section-header">
+            <h2>Admin Panel</h2>
+            <div class="admin-actions">
+                <button class="btn" style="padding: 8px 20px;">
+                    <i class="fas fa-sync-alt"></i> Refresh System
+                </button>
+                <button class="btn btn-outline" style="padding: 8px 20px;">
+                    <i class="fas fa-download"></i> Export Logs
+                </button>
+            </div>
+        </div>
+
+        <div class="admin-grid">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h3><i class="fas fa-users-cog"></i> User Management</h3>
+                    <span class="badge">4 users</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Add New User</label>
+                    <div class="input-with-button">
+                        <input type="text" placeholder="Enter email address" />
+                        <button class="btn">
+                            <i class="fas fa-user-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>User Role</label>
+                    <select>
+                        <option>Administrator</option>
+                        <option>Operator</option>
+                        <option>Viewer</option>
+                        <option>Auditor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Permissions</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" checked /> View Live Feeds
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" checked /> Manage Alerts
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" /> System Configuration
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" /> User Management
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" /> Data Export
+                        </label>
+                    </div>
+                </div>
+
+                <div class="users-list">
+                    <h4>Current Users</h4>
+                    <div class="user-item">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="user-info">
+                            <strong>admin@smartzone.ai</strong>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn-icon" title="Edit User">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-danger" title="Remove User">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="user-item">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="user-info">
+                            <strong>operator@smartzone.ai</strong>
+                            <span class="user-role">Operator</span>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn-icon" title="Edit User">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-danger" title="Remove User">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="user-item">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <strong>viewer@smartzone.ai</strong>
+                            <span class="user-role">Viewer</span>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn-icon" title="Edit User">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-danger" title="Remove User">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="user-item">
+                        <div class="user-avatar">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="user-info">
+                            <strong>auditor@smartzone.ai</strong>
+                            <span class="user-role">Auditor</span>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn-icon" title="Edit User">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-danger" title="Remove User">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h3><i class="fas fa-terminal"></i> System Logs</h3>
+                    <div class="log-controls">
+                        <select>
+                            <option>All Logs</option>
+                            <option>Errors Only</option>
+                            <option>Warnings Only</option>
+                            <option>Info Only</option>
+                        </select>
+                        <button class="btn-icon">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="log-container">
+                    <div class="log-entry log-info">
+                        <span class="log-time">[2025-08-06 10:25:32]</span>
+                        <span class="log-level">INFO</span>
+                        <span class="log-message">System started successfully</span>
+                    </div>
+
+                    <div class="log-entry log-warning">
+                        <span class="log-time">[2025-08-06 10:24:15]</span>
+                        <span class="log-level">WARNING</span>
+                        <span class="log-message">High CPU usage detected (92%)</span>
+                    </div>
+
+                    <div class="log-entry log-alert">
+                        <span class="log-time">[2025-08-06 10:24:01]</span>
+                        <span class="log-level">ALERT</span>
+                        <span class="log-message">Crowd formation detected at Main Entrance</span>
+                    </div>
+
+                    <div class="log-entry log-info">
+                        <span class="log-time">[2025-08-06 10:22:45]</span>
+                        <span class="log-level">INFO</span>
+                        <span class="log-message">Camera feed restored: Parking Lot</span>
+                    </div>
+
+                    <div class="log-entry log-info">
+                        <span class="log-time">[2025-08-06 10:20:30]</span>
+                        <span class="log-level">INFO</span>
+                        <span class="log-message">Security update applied</span>
+                    </div>
+
+                    <div class="log-entry log-alert">
+                        <span class="log-time">[2025-08-06 09:45:22]</span>
+                        <span class="log-level">ALERT</span>
+                        <span class="log-message">Fire detected in Kitchen, Building B</span>
+                    </div>
+
+                    <div class="log-entry log-info">
+                        <span class="log-time">[2025-08-06 09:40:10]</span>
+                        <span class="log-level">INFO</span>
+                        <span class="log-message">Database backup completed</span>
+                    </div>
+
+                    <div class="log-entry log-info">
+                        <span class="log-time">[2025-08-06 09:30:05]</span>
+                        <span class="log-level">INFO</span>
+                        <span class="log-message">User login: admin@smartzone.ai</span>
+                    </div>
+
+                    <div class="log-entry log-error">
+                        <span class="log-time">[2025-08-06 08:45:18]</span>
+                        <span class="log-level">ERROR</span>
+                        <span class="log-message">Camera connection lost: Staircase 3</span>
+                    </div>
+
+                    <div class="log-entry log-alert">
+                        <span class="log-time">[2025-08-06 08:30:45]</span>
+                        <span class="log-level">ALERT</span>
+                        <span class="log-message">Person fall detected at Staircase, Floor 3</span>
+                    </div>
+                </div>
+
+                <div class="log-pagination">
+                    <button class="btn-icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">Page 1 of 5</span>
+                    <button class="btn-icon">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h3><i class="fas fa-tools"></i> System Maintenance</h3>
+                    <div class="system-status">
+                        <div class="status-dot status-safe"></div>
+                        <span>All Systems Operational</span>
+                    </div>
+                </div>
+
+                <div class="system-metrics">
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <span class="metric-label">Database Status</span>
+                            <span class="metric-value">Healthy</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 65%"></div>
+                        </div>
+                        <div class="metric-details">32.5MB of 50MB used</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <span class="metric-label">Storage Status</span>
+                            <span class="metric-value">Good</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 51%"></div>
+                        </div>
+                        <div class="metric-details">245GB of 500GB available</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <span class="metric-label">CPU Usage</span>
+                            <span class="metric-value">High</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill cpu-usage" style="width: 92%"></div>
+                        </div>
+                        <div class="metric-details">92% - Consider optimization</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <span class="metric-label">Memory Usage</span>
+                            <span class="metric-value">Normal</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 68%"></div>
+                        </div>
+                        <div class="metric-details">6.8GB of 10GB used</div>
+                    </div>
+                </div>
+
+                <div class="maintenance-actions">
+                    <h4>Quick Actions</h4>
+                    <div class="action-buttons">
+                        <button class="btn btn-action">
+                            <i class="fas fa-database"></i>
+                            <span>Run Backup</span>
+                        </button>
+
+                        <button class="btn btn-action">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Check Updates</span>
+                        </button>
+
+                        <button class="btn btn-action">
+                            <i class="fas fa-trash"></i>
+                            <span>Clear Cache</span>
+                        </button>
+
+                        <button class="btn btn-action">
+                            <i class="fas fa-redo"></i>
+                            <span>Restart Services</span>
+                        </button>
+
+                        <button class="btn btn-action btn-warning">
+                            <i class="fas fa-power-off"></i>
+                            <span>Restart System</span>
+                        </button>
+
+                        <button class="btn btn-action btn-danger">
+                            <i class="fas fa-skull"></i>
+                            <span>Emergency Stop</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="backup-settings">
+                    <h4>Backup Configuration</h4>
+                    <div class="form-group">
+                        <label>Backup Schedule</label>
+                        <select>
+                            <option>Daily at 2:00 AM</option>
+                            <option>Weekly on Sunday</option>
+                            <option>Monthly on 1st</option>
+                            <option>Custom Schedule</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Retention Period</label>
+                        <div class="input-with-unit">
+                            <input type="number" value="30" min="1" max="365" />
+                            <span class="unit">days</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Backup Location</label>
+                        <select>
+                            <option>Local Storage</option>
+                            <option>Cloud Storage</option>
+                            <option>External Drive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h3><i class="fas fa-network-wired"></i> System Information</h3>
+                </div>
+
+                <div class="system-info">
+                    <div class="info-item">
+                        <span class="info-label">System Version</span>
+                        <span class="info-value">SmartZone AI v2.1.4</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Last Updated</span>
+                        <span class="info-value">2025-07-15 14:30:22</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Uptime</span>
+                        <span class="info-value">15 days, 7 hours, 32 minutes</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Active Cameras</span>
+                        <span class="info-value">8 of 12 connected</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">AI Model Version</span>
+                        <span class="info-value">Detection Model v1.5.2</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">License Type</span>
+                        <span class="info-value">Enterprise - Valid until 2026-01-01</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Support Contact</span>
+                        <span class="info-value">support@smartzone.ai</span>
+                    </div>
+                </div>
+
+                <div class="license-info">
+                    <h4>License Details</h4>
+                    <div class="license-status">
+                        <div class="status-indicator">
+                            <div class="status-dot status-safe"></div>
+                            License Active
+                        </div>
+                        <div class="license-progress">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 45%"></div>
+                            </div>
+                            <span class="progress-text">45% of license period used</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="update-check">
+                    <h4>Software Updates</h4>
+                    <div class="update-status">
+                        <div class="status-indicator">
+                            <div class="status-dot status-warning"></div>
+                            Update Available (v2.2.0)
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                            <i class="fas fa-download"></i> Download Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

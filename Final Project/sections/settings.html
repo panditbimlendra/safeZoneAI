@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+
+    <!-- Link Admin CSS -->
+    <link rel="stylesheet" href="admin.css">
+
+    <!-- Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+
+<body>
+    <div id="settings" class="dashboard-section">
+        <div class="section-header">
+            <h2>System Settings</h2>
+            <div class="settings-actions">
+                <button class="btn" style="padding: 8px 20px;">
+                    <i class="fas fa-save"></i> Save All Changes
+                </button>
+                <button class="btn btn-outline" style="padding: 8px 20px;">
+                    <i class="fas fa-undo"></i> Reset to Defaults
+                </button>
+            </div>
+        </div>
+
+        <div class="settings-grid">
+            <div class="setting-card">
+                <div class="setting-header">
+                    <h3><i class="fas fa-bell"></i> Notification Settings</h3>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="notificationsMaster" checked />
+                        <label for="notificationsMaster" class="slider"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notification Methods</label>
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="emailToggle" checked />
+                                <label for="emailToggle" class="slider"></label>
+                            </div>
+                            <span>Email Notifications</span>
+                        </div>
+                        <div class="toggle-item">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="smsToggle" checked />
+                                <label for="smsToggle" class="slider"></label>
+                            </div>
+                            <span>SMS Notifications</span>
+                        </div>
+                        <div class="toggle-item">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="pushToggle" checked />
+                                <label for="pushToggle" class="slider"></label>
+                            </div>
+                            <span>Push Notifications</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Addresses</label>
+                    <input type="text" placeholder="Enter comma separated emails"
+                        value="admin@company.com, security@company.com" />
+                    <small>Separate multiple emails with commas</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Numbers</label>
+                    <input type="text" placeholder="Enter comma separated phone numbers"
+                        value="+1234567890, +0987654321" />
+                    <small>Include country code for SMS notifications</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Alert Types to Notify</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" checked /> Fire Detection
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" checked /> Fall Detection
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" checked /> Crowd Alerts
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" /> Vehicle Incidents
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" checked /> Audio Distress
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <div class="setting-header">
+                    <h3><i class="fas fa-sliders-h"></i> Detection Thresholds</h3>
+                </div>
+
+                <div class="form-group">
+                    <label>Fire Detection Sensitivity</label>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="7" class="sensitivity-slider" />
+                        <div class="slider-labels">
+                            <span>Low</span>
+                            <span class="slider-value">7/10</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fall Detection Sensitivity</label>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="8" class="sensitivity-slider" />
+                        <div class="slider-labels">
+                            <span>Low</span>
+                            <span class="slider-value">8/10</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Crowd Size Threshold</label>
+                    <div class="input-with-unit">
+                        <input type="number" value="10" min="1" max="100" />
+                        <span class="unit">people</span>
+                    </div>
+                    <small>Alert when crowd exceeds this size</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Audio Analysis Sensitivity</label>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="6" class="sensitivity-slider" />
+                        <div class="slider-labels">
+                            <span>Low</span>
+                            <span class="slider-value">6/10</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Minimum Confidence Score</label>
+                    <div class="slider-container">
+                        <input type="range" min="50" max="95" value="75" class="confidence-slider" />
+                        <div class="slider-labels">
+                            <span>50%</span>
+                            <span class="slider-value">75%</span>
+                            <span>95%</span>
+                        </div>
+                    </div>
+                    <small>Minimum confidence required to trigger alerts</small>
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <div class="setting-header">
+                    <h3><i class="fas fa-video"></i> Camera Configuration</h3>
+                </div>
+
+                <div class="form-group">
+                    <label>Camera Feed Source</label>
+                    <select>
+                        <option>IP Camera</option>
+                        <option>RTSP Stream</option>
+                        <option>Webcam</option>
+                        <option>File Upload</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Camera IP Address</label>
+                    <input type="text" value="192.168.1.100" />
+                </div>
+
+                <div class="form-group">
+                    <label>RTSP Stream URL</label>
+                    <input type="text" placeholder="rtsp://example.com/stream"
+                        value="rtsp://192.168.1.100:554/stream" />
+                </div>
+
+                <div class="form-group">
+                    <label>Connection Port</label>
+                    <input type="number" value="554" />
+                </div>
+
+                <div class="form-group">
+                    <label>Frame Rate</label>
+                    <select>
+                        <option>15 FPS</option>
+                        <option selected>30 FPS</option>
+                        <option>60 FPS</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Resolution</label>
+                    <select>
+                        <option>720p HD</option>
+                        <option selected>1080p Full HD</option>
+                        <option>4K Ultra HD</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Recording Storage</label>
+                    <div class="input-with-unit">
+                        <input type="number" value="30" min="1" max="365" />
+                        <span class="unit">days</span>
+                    </div>
+                    <small>Number of days to keep video recordings</small>
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <div class="setting-header">
+                    <h3><i class="fas fa-code"></i> API Configuration</h3>
+                </div>
+
+                <div class="form-group">
+                    <label>API Key</label>
+                    <div class="api-key-container">
+                        <input type="text" value="sk_live_*****e8f9a7b3c4d5e6f" readonly />
+                        <button class="btn-icon">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="btn-icon">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>API Endpoint</label>
+                    <input type="text" value="https://api.smartzone.ai/v1" />
+                </div>
+
+                <div class="form-group">
+                    <label>Request Timeout</label>
+                    <div class="input-with-unit">
+                        <input type="number" value="5000" min="1000" max="30000" />
+                        <span class="unit">ms</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Max Retries</label>
+                    <input type="number" value="3" min="0" max="10" />
+                </div>
+
+                <div class="form-group">
+                    <label>Webhook URL</label>
+                    <input type="text" placeholder="https://your-server.com/webhook" />
+                    <small>Receive real-time alerts via webhooks</small>
+                </div>
+
+                <div class="form-group">
+                    <label>API Usage</label>
+                    <div class="usage-stats">
+                        <div class="usage-item">
+                            <span class="usage-label">Requests Today</span>
+                            <span class="usage-value">1,247</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-label">Monthly Limit</span>
+                            <span class="usage-value">50,000 / 100,000</span>
+                        </div>
+                        <div class="usage-progress">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <div class="setting-header">
+                    <h3><i class="fas fa-shield-alt"></i> Security Settings</h3>
+                </div>
+
+                <div class="form-group">
+                    <label>Session Timeout</label>
+                    <select>
+                        <option>15 minutes</option>
+                        <option>30 minutes</option>
+                        <option selected>1 hour</option>
+                        <option>4 hours</option>
+                        <option>Never</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Two-Factor Authentication</label>
+                    <div class="toggle-item">
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="2faToggle" />
+                            <label for="2faToggle" class="slider"></label>
+                        </div>
+                        <span>Enable 2FA</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password Policy</label>
+                    <select>
+                        <option>Basic (6 characters minimum)</option>
+                        <option selected>Standard (8 characters, mixed case)</option>
+                        <option>Strong (12 characters, special characters required)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>IP Whitelist</label>
+                    <textarea placeholder="Enter allowed IP addresses (one per line)">192.168.1.0/24
+10.0.0.50</textarea>
+                    <small>Only these IP addresses can access the dashboard</small>
+                </div>
+            </div>
+
+            <div class="setting-card">
+                <div class="setting-header">
+                    <h3><i class="fas fa-palette"></i> Interface Settings</h3>
+                </div>
+
+                <div class="form-group">
+                    <label>Theme</label>
+                    <div class="theme-selector">
+                        <div class="theme-option active">
+                            <div class="theme-preview light-theme"></div>
+                            <span>Light</span>
+                        </div>
+                        <div class="theme-option">
+                            <div class="theme-preview dark-theme"></div>
+                            <span>Dark</span>
+                        </div>
+                        <div class="theme-option">
+                            <div class="theme-preview auto-theme"></div>
+                            <span>Auto</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Language</label>
+                    <select>
+                        <option selected>English</option>
+                        <option>Spanish</option>
+                        <option>French</option>
+                        <option>German</option>
+                        <option>Chinese</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Time Zone</label>
+                    <select>
+                        <option>UTC</option>
+                        <option selected>Local Time</option>
+                        <option>Custom...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Date Format</label>
+                    <select>
+                        <option>MM/DD/YYYY</option>
+                        <option selected>DD/MM/YYYY</option>
+                        <option>YYYY-MM-DD</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Default Dashboard View</label>
+                    <select>
+                        <option selected>Overview</option>
+                        <option>Live Monitoring</option>
+                        <option>Alert Logs</option>
+                        <option>Analytics</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-actions-bottom">
+            <button class="btn btn-primary" style="padding: 12px 40px; font-size: 16px">
+                <i class="fas fa-save"></i> Save All Settings
+            </button>
+            <button class="btn btn-outline" style="padding: 12px 30px; font-size: 16px">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>

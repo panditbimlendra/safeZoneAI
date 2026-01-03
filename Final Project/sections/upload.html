@@ -1,0 +1,59 @@
+<div id="upload" class="dashboard-section">
+    <div class="section-header">
+        <h2>Upload & Analyze Video</h2>
+    </div>
+
+    <div class="upload-container" id="dropZone">
+        <input type="file" id="videoUpload" accept="video/*" style="display:none">
+        <div class="upload-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <div class="upload-text">
+            <h3>Upload Video for Analysis</h3>
+            <p>Drag & drop a video file here or click to browse</p>
+            <button class="btn" id="uploadBtn">
+                <i class="fas fa-folder-open"></i> Choose File
+            </button>
+        </div>
+        <div class="upload-progress" style="display:none">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <span class="progress-text">0% uploaded</span>
+        </div>
+        <video id="videoPreview" controls style="display:none; width:100%; margin-top:20px"></video>
+    </div>
+
+    <div class="detection-options">
+        <div class="option-card active">
+            <i class="fas fa-fire"></i>
+            <h4>Fire Detection</h4>
+        </div>
+        <div class="option-card">
+            <i class="fas fa-car-crash"></i>
+            <h4>Crash Detection</h4>
+        </div>
+        <div class="option-card">
+            <i class="fas fa-user-fall"></i>
+            <h4>Fall Detection</h4>
+        </div>
+        <div class="option-card">
+            <i class="fas fa-users"></i>
+            <h4>Crowd Detection</h4>
+        </div>
+        <div class="option-card">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h4>Audio Analysis</h4>
+        </div>
+        <div class="option-card">
+            <i class="fas fa-search"></i>
+            <h4>Full Analysis</h4>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px">
+        <button class="btn" style="padding: 12px 40px; font-size: 16px">
+            <i class="fas fa-play-circle"></i> Start Analysis
+        </button>
+    </div>
+</div>
