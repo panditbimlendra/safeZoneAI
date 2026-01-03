@@ -1,0 +1,19 @@
+<div class="dashboard-section" id="crashDetectionSection">
+    <div class="section-header">
+        <h2><i class="fas fa-car-crash"></i> Crash Detection</h2>
+    </div>
+
+    <form id="crashUploadForm" class="upload-form">
+        <div class="form-group">
+            <label for="crashVideo">Upload Traffic Video</label>
+            <input type="file" id="crashVideo" accept="video/*" required>
+        </div>
+        <button type="submit" class="btn btn-analyze">
+            <i class="fas fa-search"></i> Analyze for Crashes
+        </button>
+    </form>
+
+    <div id="crashResults" class="results-container"></div>
+</div>
+
+<script src="js/crash-detection.js"></script>
