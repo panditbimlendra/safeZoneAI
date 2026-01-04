@@ -1,3 +1,5 @@
+
+
 // Dashboard specific functionality
 document.addEventListener("DOMContentLoaded", function () {
   initializeDashboard();
