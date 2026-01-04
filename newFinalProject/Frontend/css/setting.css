@@ -1,288 +1,460 @@
-/* Settings Page Specific Styles */
-
 /* Settings Container */
 .settings-container {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
 }
 
 /* Settings Sidebar */
 .settings-sidebar {
-    background-color: white;
-    border-radius: var(--border-radius);
-    padding: 20px 0;
-    box-shadow: var(--box-shadow);
-    height: fit-content;
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 20px 0;
+  box-shadow: var(--box-shadow);
+  height: fit-content;
 }
 
 .settings-menu {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .settings-menu-item {
-    padding: 15px 25px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--gray-dark);
-    cursor: pointer;
-    transition: var(--transition);
-    border-left: 3px solid transparent;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gray-dark);
+  cursor: pointer;
+  transition: var(--transition);
+  border-left: 3px solid transparent;
 }
 
 .settings-menu-item:hover {
-    background-color: rgba(26, 115, 232, 0.05);
-    color: var(--primary-color);
+  background-color: rgba(26, 115, 232, 0.05);
+  color: var(--primary-color);
 }
 
 .settings-menu-item.active {
-    background-color: rgba(26, 115, 232, 0.1);
-    color: var(--primary-color);
-    border-left-color: var(--primary-color);
+  background-color: rgba(26, 115, 232, 0.1);
+  color: var(--primary-color);
+  border-left-color: var(--primary-color);
 }
 
 .settings-menu-item i {
-    width: 20px;
-    text-align: center;
+  width: 20px;
+  text-align: center;
 }
 
 /* Settings Content */
 .settings-content {
-    background-color: white;
-    border-radius: var(--border-radius);
-    padding: 30px;
-    box-shadow: var(--box-shadow);
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: var(--box-shadow);
 }
 
 .settings-section {
-    display: none;
+  display: none;
 }
 
 .settings-section.active {
-    display: block;
+  display: block;
 }
 
 .settings-header {
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--gray-light);
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--gray-light);
 }
 
 .settings-header h2 {
-    font-size: 24px;
-    color: var(--dark-color);
+  font-size: 24px;
+  color: var(--dark-color);
 }
 
 .settings-header p {
-    color: var(--gray-dark);
-    margin-top: 10px;
+  color: var(--gray-dark);
+  margin-top: 10px;
 }
 
 /* Form Groups */
 .form-group {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--dark-color);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--dark-color);
 }
 
 .form-control {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--gray-light);
-    border-radius: var(--border-radius);
-    font-size: 14px;
-    transition: var(--transition);
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  transition: var(--transition);
 }
 
 .form-control:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
 }
 
 .form-text {
-    font-size: 13px;
-    color: var(--gray-dark);
-    margin-top: 5px;
+  font-size: 13px;
+  color: var(--gray-dark);
+  margin-top: 5px;
 }
 
 /* Checkbox & Radio */
 .checkbox-group,
 .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .checkbox-item,
 .radio-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .checkbox-item input,
 .radio-item input {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .checkbox-item label,
 .radio-item label {
-    margin-bottom: 0;
-    cursor: pointer;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 
 /* Camera Settings */
 .camera-grid-settings {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
 .camera-setting-card {
-    border: 1px solid var(--gray-light);
-    border-radius: var(--border-radius);
-    padding: 20px;
-    transition: var(--transition);
+  border: 1px solid var(--gray-light);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  transition: var(--transition);
 }
 
 .camera-setting-card.active {
-    border-color: var(--primary-color);
-    background-color: rgba(26, 115, 232, 0.05);
+  border-color: var(--primary-color);
+  background-color: rgba(26, 115, 232, 0.05);
 }
 
 .camera-header-setting {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 .camera-name-input {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid var(--gray-light);
-    border-radius: var(--border-radius);
-    font-size: 14px;
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--border-radius);
+  font-size: 14px;
 }
 
 .camera-toggle {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-    margin-left: 15px;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin-left: 15px;
 }
 
 .camera-toggle input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .camera-toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: var(--transition);
-    border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: var(--transition);
+  border-radius: 34px;
 }
 
 .camera-toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: var(--transition);
-    border-radius: 50%;
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: var(--transition);
+  border-radius: 50%;
 }
 
 input:checked + .camera-toggle-slider {
-    background-color: var(--success-color);
+  background-color: var(--success-color);
 }
 
 input:checked + .camera-toggle-slider:before {
-    transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 /* Alert Rules */
 .alert-rules {
-    background-color: var(--light-color);
-    border-radius: var(--border-radius);
-    padding: 20px;
-    margin-bottom: 30px;
+  background-color: var(--light-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-bottom: 30px;
 }
 
 .rule-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    background-color: white;
-    border-radius: var(--border-radius);
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  margin-bottom: 10px;
 }
 
 .rule-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .rule-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 .rule-icon.accident {
-    background-color: var(--warning-color);
+  background-color: var(--warning-color);
 }
 
 .rule-icon.fire {
-    background-color: var(--danger-color);
+  background-color: var(--danger-color);
 }
 
 .rule-icon.weapon {
-    background-color: #8e24aa;
+  background-color: #8e24aa;
 }
 
 .rule-actions {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 /* User Management */
 .users-table {
-    background-color: var(--light-color);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    margin-bottom: 30px;
+  background-color: var(--light-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: 30px;
 }
 
 .user-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
-    align-items: center;
-    gap:
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: var(--border-radius);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.user-email {
+  font-size: 12px;
+  color: var(--gray-dark);
+}
+
+.user-role {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.user-role.admin {
+  background-color: rgba(26, 115, 232, 0.1);
+  color: var(--primary-color);
+}
+
+.user-role.operator {
+  background-color: rgba(52, 168, 83, 0.1);
+  color: var(--success-color);
+}
+
+.user-role.viewer {
+  background-color: rgba(117, 117, 117, 0.1);
+  color: #757575;
+}
+
+/* System Settings */
+.system-info {
+  background-color: var(--light-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-label {
+  font-size: 12px;
+  color: var(--gray-dark);
+}
+
+.info-value {
+  font-weight: 500;
+}
+
+/* Backup Settings */
+.backup-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.backup-card {
+  padding: 20px;
+  border: 2px solid var(--gray-light);
+  border-radius: var(--border-radius);
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.backup-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.backup-card i {
+  font-size: 32px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.backup-card h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.backup-card p {
+  font-size: 14px;
+  color: var(--gray-dark);
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .settings-container {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-sidebar {
+    display: flex;
+    overflow-x: auto;
+    padding: 15px;
+  }
+
+  .settings-menu {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .settings-menu-item {
+    padding: 10px 15px;
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  .settings-menu-item.active {
+    border-left: none;
+    border-bottom-color: var(--primary-color);
+  }
+}
+
+@media (max-width: 768px) {
+  .camera-grid-settings {
+    grid-template-columns: 1fr;
+  }
+
+  .rule-item {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .rule-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .user-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .backup-options {
+    grid-template-columns: 1fr;
+  }
+}
