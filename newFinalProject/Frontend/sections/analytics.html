@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | SmartVision AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/analytics.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SmartVision<span class="logo-highlight">AI</span></span>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="events.html"><i class="fas fa-exclamation-triangle"></i> Events</a></li>
+                    <li><a href="analytics.html" class="active"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="alerts.html"><i class="fas fa-bell"></i> Alerts <span class="badge">3</span></a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-user">
+                <div class="user-info">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=1a73e8&color=fff" alt="User">
+                    <span>Admin</span>
+                </div>
+                <div class="nav-status">
+                    <span class="status-indicator active"></span>
+                    <span>System Active</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-header">
+            <h1>Analytics Dashboard</h1>
+            <div class="header-actions">
+                <select id="analyticsPeriod" class="form-control" style="width: 200px;">
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month" selected>This Month</option>
+                    <option value="quarter">This Quarter</option>
+                    <option value="year">This Year</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Analytics Overview -->
+        <div class="analytics-overview">
+            <div class="analytics-card">
+                <div class="analytics-header">
+                    <h3>Total Events</h3>
+                    <div class="analytics-trend positive">
+                        <i class="fas fa-arrow-up"></i> 12%
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line"></i>
+                    <p>Total Anomaly Events: 1,247</p>
+                    <small>Compared to last month</small>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <div class="analytics-header">
+                    <h3>Detection Accuracy</h3>
+                    <div class="analytics-trend positive">
+                        <i class="fas fa-arrow-up"></i> 2.3%
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-bullseye"></i>
+                    <p>AI Accuracy: 98.2%</p>
+                    <small>False Positives: 1.8%</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h3>Anomaly Events by Type</h3>
+                <div class="chart-controls">
+                    <select class="chart-period">
+                        <option value="daily">Daily</option>
+                        <option value="weekly" selected>Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-pie"></i>
+                <p>Event Type Distribution Chart</p>
+                <small>Shows breakdown of different anomaly types</small>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <h3>Events Over Time</h3>
+                <div class="chart-controls">
+                    <select class="chart-period">
+                        <option value="7days">Last 7 Days</option>
+                        <option value="30days" selected>Last 30 Days</option>
+                        <option value="90days">Last 90 Days</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-bar"></i>
+                <p>Events Timeline Chart</p>
+                <small>Shows event frequency over selected period</small>
+            </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="section-header">
+            <h2>Key Performance Metrics</h2>
+            <button class="btn-sm btn-outline" id="refreshMetrics">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">98.2%</div>
+                <div class="metric-label">Detection Accuracy</div>
+                <div class="metric-change positive">
+                    <i class="fas fa-arrow-up"></i> 2.3%
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">2.4s</div>
+                <div class="metric-label">Avg Response Time</div>
+                <div class="metric-change negative">
+                    <i class="fas fa-arrow-down"></i> 0.3s
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">87%</div>
+                <div class="metric-label">System Uptime</div>
+                <div class="metric-change positive">
+                    <i class="fas fa-arrow-up"></i> 5%
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">1.8%</div>
+                <div class="metric-label">False Positives</div>
+                <div class="metric-change negative">
+                    <i class="fas fa-arrow-up"></i> 0.2%
+                </div>
+            </div>
+        </div>
+
+        <!-- Heat Map -->
+        <div class="heat-map-container">
+            <div class="section-header">
+                <h3>Anomaly Heat Map</h3>
+                <div class="header-actions">
+                    <span>High Risk Areas</span>
+                </div>
+            </div>
+
+            <div class="heat-map-grid">
+                <div class="heat-map-cell low">1</div>
+                <div class="heat-map-cell low">2</div>
+                <div class="heat-map-cell medium">3</div>
+                <div class="heat-map-cell high">4</div>
+                <div class="heat-map-cell low">5</div>
+                <div class="heat-map-cell medium">6</div>
+                <div class="heat-map-cell high">7</div>
+                <div class="heat-map-cell low">8</div>
+                <div class="heat-map-cell medium">9</div>
+                <div class="heat-map-cell high">10</div>
+                <div class="heat-map-cell

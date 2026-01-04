@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SmartVision AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SmartVision<span class="logo-highlight">AI</span></span>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="events.html"><i class="fas fa-exclamation-triangle"></i> Events</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="alerts.html"><i class="fas fa-bell"></i> Alerts <span class="badge">3</span></a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-user">
+                <div class="user-info">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=1a73e8&color=fff" alt="User">
+                    <span>Admin</span>
+                </div>
+                <div class="nav-status">
+                    <span class="status-indicator active"></span>
+                    <span>System Active</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-header">
+            <h1>Dashboard Overview</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button class="btn btn-secondary" id="exportBtn">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon accident">
+                    <i class="fas fa-car-crash"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Accidents</h3>
+                    <p class="stat-count">12</p>
+                    <p class="stat-change"><i class="fas fa-arrow-up"></i> 20% this week</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon fire">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Fire Incidents</h3>
+                    <p class="stat-count">3</p>
+                    <p class="stat-change"><i class="fas fa-arrow-down"></i> 15% this week</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon weapon">
+                    <i class="fas fa-gun"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Weapon Detections</h3>
+                    <p class="stat-count">2</p>
+                    <p class="stat-change"><i class="fas fa-exclamation-circle"></i> Critical</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon fall">
+                    <i class="fas fa-person-falling"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Fall Detections</h3>
+                    <p class="stat-count">8</p>
+                    <p class="stat-change"><i class="fas fa-arrow-up"></i> 5% this week</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Health -->
+        <div class="section-header">
+            <h2>System Health</h2>
+            <div class="header-actions">
+                <span class="status active"><i class="fas fa-circle"></i> All Systems Operational</span>
+            </div>
+        </div>
+
+        <div class="system-health">
+            <div class="health-card">
+                <div class="health-header">
+                    <h4>Camera Status</h4>
+                    <span class="status active">4/5 Active</span>
+                </div>
+                <div class="health-progress">
+                    <div class="health-progress-bar good" style="width: 80%"></div>
+                </div>
+                <div class="health-stats">
+                    <span>Active: 4</span>
+                    <span>Offline: 1</span>
+                </div>
+            </div>
+
+            <div class="health-card">
+                <div class="health-header">
+                    <h4>AI Detection</h4>
+                    <span class="status active">98.2% Accuracy</span>
+                </div>
+                <div class="health-progress">
+                    <div class="health-progress-bar good" style="width: 98%"></div>
+                </div>
+                <div class="health-stats">
+                    <span>Today: 98.2%</span>
+                    <span>Avg: 97.5%</span>
+                </div>
+            </div>
+
+            <div class="health-card">
+                <div class="health-header">
+                    <h4>Storage</h4>
+                    <span class="status warning">75% Used</span>
+                </div>
+                <div class="health-progress">
+                    <div class="health-progress-bar warning" style="width: 75%"></div>
+                </div>
+                <div class="health-stats">
+                    <span>Used: 1.5TB</span>
+                    <span>Free: 500GB</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Camera Grid -->
+        <div class="section-header">
+            <h2>Live Camera Feeds</h2>
+            <div class="camera-controls">
+                <button class="btn-sm btn-outline"><i class="fas fa-expand"></i> Grid View</button>
+                <button class="btn-sm btn-outline"><i class="fas fa-list"></i> List View</button>
+            </div>
+        </div>
+
+        <div class="camera-grid">
+            <div class="camera-card">
+                <div class="camera-header">
+                    <h4>Entrance Gate</h4>
+                    <span class="status active">Live</span>
+                </div>
+                <div class="camera-feed" data-anomaly="none">
+                    <div class="feed-placeholder">
+                        <i class="fas fa-video"></i>
+                        <p>Camera 01 - Normal</p>
+                    </div>
+                </div>
+                <div class="camera-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Main Entrance</p>
+                    <p><i class="fas fa-clock"></i> Last anomaly: 2h ago</p>
+                </div>
+            </div>
+
+            <div class="camera-card">
+                <div class="camera-header">
+                    <h4>Parking Area</h4>
+                    <span class="status warning">Alert</span>
+                </div>
+                <div class="camera-feed" data-anomaly="accident">
+                    <div class="feed-placeholder anomaly">
+                        <i class="fas fa-car-crash"></i>
+                        <p>ACCIDENT DETECTED</p>
+                    </div>
+                </div>
+                <div class="camera-info">
+                    <p><i class="fas fa-map-marker-alt"></i> North Parking</p>
+                    <p><i class="fas fa-clock"></i> Active alert</p>
+                </div>
+            </div>
+
+            <div class="camera-card">
+                <div class="camera-header">
+                    <h4>Warehouse</h4>
+                    <span class="status danger">Fire</span>
+                </div>
+                <div class="camera-feed" data-anomaly="fire">
+                    <div class="feed-placeholder fire">
+                        <i class="fas fa-fire"></i>
+                        <p>FIRE DETECTED</p>
+                    </div>
+                </div>
+                <div class="camera-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Storage Area</p>
+                    <p><i class="fas fa-clock"></i> Emergency response</p>
+                </div>
+            </div>
+
+            <div class="camera-card">
+                <div class="camera-header">
+                    <h4>Common Area</h4>
+                    <span class="status active">Live</span>
+                </div>
+                <div class="camera-feed" data-anomaly="none">
+                    <div class="feed-placeholder">
+                        <i class="fas fa-video"></i>
+                        <p>Camera 04 - Normal</p>
+                    </div>
+                </div>
+                <div class="camera-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Central Plaza</p>
+                    <p><i class="fas fa-clock"></i> Last anomaly: 5h ago</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Events -->
+        <div class="section-header">
+            <h2>Recent Anomalies</h2>
+            <a href="events.html" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="events-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Camera</th>
+                        <th>Anomaly Type</th>
+                        <th>Severity</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="recentEvents">
+                    <!-- Events populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Live Updates -->
+        <div class="section-header">
+            <h2>Live Updates</h2>
+            <button class="btn-sm btn-outline" id="pauseUpdatesBtn">
+                <i class="fas fa-pause"></i> Pause Updates
+            </button>
+        </div>
+
+        <div class="live-updates">
+            <div class="update-item">
+                <div class="update-icon accident">
+                    <i class="fas fa-car-crash"></i>
+                </div>
+                <div class="update-content">
+                    <p><strong>Car accident detected</strong> in Parking Area</p>
+                    <p class="update-time">2 minutes ago</p>
+                </div>
+            </div>
+
+            <div class="update-item">
+                <div class="update-icon fire">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="update-content">
+                    <p><strong>Fire detected</strong> in Warehouse - Emergency services notified</p>
+                    <p class="update-time">15 minutes ago</p>
+                </div>
+            </div>
+
+            <div class="update-item">
+                <div class="update-icon weapon">
+                    <i class="fas fa-gun"></i>
+                </div>
+                <div class="update-content">
+                    <p><strong>Weapon detected</strong> at Entrance Gate - Security alerted</p>
+                    <p class="update-time">1 hour ago</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>SmartVision AI</h4>
+                <p>Intelligent surveillance system for anomaly detection and security monitoring.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Detection Types</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-car-crash"></i> Accident Detection</a></li>
+                    <li><a href="#"><i class="fas fa-fire"></i> Fire & Smoke</a></li>
+                    <li><a href="#"><i class="fas fa-gun"></i> Weapon Detection</a></li>
+                    <li><a href="#"><i class="fas fa-volume-up"></i> Loud Sound</a></li>
+                    <li><a href="#"><i class="fas fa-person-falling"></i> Fall Detection</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="events.html"><i class="fas fa-exclamation-triangle"></i> Events</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="alerts.html"><i class="fas fa-bell"></i> Alerts</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-envelope"></i> support@smartvision.ai</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-clock"></i> 24/7 Monitoring Center</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2023 SmartVision AI. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of
+                    Service</a></p>
+            <p class="system-status">System Status: <span class="status active">Operational</span> | Last Updated: <span
+                    id="currentTime"></span></p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>

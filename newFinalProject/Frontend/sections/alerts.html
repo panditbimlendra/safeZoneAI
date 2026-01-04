@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts | SmartVision AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/alerts.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SmartVision<span class="logo-highlight">AI</span></span>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="events.html"><i class="fas fa-exclamation-triangle"></i> Events</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="alerts.html" class="active"><i class="fas fa-bell"></i> Alerts <span
+                                class="badge">3</span></a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-user">
+                <div class="user-info">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=1a73e8&color=fff" alt="User">
+                    <span>Admin</span>
+                </div>
+                <div class="nav-status">
+                    <span class="status-indicator active"></span>
+                    <span>Monitoring Active</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-header">
+            <h1>Alert Management</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="markAllRead">
+                    <i class="fas fa-check-double"></i> Mark All Read
+                </button>
+                <button class="btn btn-secondary" id="clearAllAlerts">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+        </div>
+
+        <!-- Alert Stats -->
+        <div class="alert-stats">
+            <div class="stat-item">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Active Alerts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">42</div>
+                <div class="stat-label">Today</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">247</div>
+                <div class="stat-label">This Week</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">98.2%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+        </div>
+
+        <!-- Priority Alerts -->
+        <div class="section-header">
+            <h2>Priority Alerts <span class="badge danger">3</span></h2>
+            <div class="alert-filters">
+                <button class="btn-sm btn-outline active">All</button>
+                <button class="btn-sm btn-outline">Unread</button>
+                <button class="btn-sm btn-outline">Resolved</button>
+            </div>
+        </div>
+
+        <div class="priority-alerts">
+            <div class="alert-card critical">
+                <div class="alert-header">
+                    <div class="alert-title">
+                        <div class="alert-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div>
+                            <h4>Fire Detected in Warehouse</h4>
+                            <p class="alert-time">2 minutes ago • <span class="badge danger">CRITICAL</span></p>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn-sm btn-outline" onclick="acknowledgeAlert(1)">
+                            <i class="fas fa-check"></i> Acknowledge
+                        </button>
+                        <button class="btn-sm btn-danger" onclick="resolveAlert(1)">
+                            <i class="fas fa-times"></i> Resolve
+                        </button>
+                    </div>
+                </div>
+                <div class="alert-body">
+                    <p><strong>Location:</strong> Warehouse - Storage Area A</p>
+                    <p><strong>Camera:</strong> WH-CAM-03</p>
+                    <p><strong>Confidence:</strong> 96.7%</p>
+                    <p><strong>Action Taken:</strong> Fire department notified, sprinklers activated</p>
+                </div>
+            </div>
+
+            <div class="alert-card high">
+                <div class="alert-header">
+                    <div class="alert-title">
+                        <div class="alert-icon">
+                            <i class="fas fa-car-crash"></i>
+                        </div>
+                        <div>
+                            <h4>Car Accident in Parking Area</h4>
+                            <p class="alert-time">15 minutes ago • <span class="badge warning">HIGH PRIORITY</span></p>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn-sm btn-outline" onclick="acknowledgeAlert(2)">
+                            <i class="fas fa-check"></i> Acknowledge
+                        </button>
+                        <button class="btn-sm btn-danger" onclick="resolveAlert(2)">
+                            <i class="fas fa-times"></i> Resolve
+                        </button>
+                    </div>
+                </div>
+                <div class="alert-body">
+                    <p><strong>Location:</strong> North Parking - Section B</p>
+                    <p><strong>Camera:</strong> PK-CAM-02</p>
+                    <p><strong>Confidence:</strong> 89.3%</p>
+                    <p><strong>Injuries:</strong> Possible • Medical team dispatched</p>
+                </div>
+            </div>
+
+            <div class="alert-card medium">
+                <div class="alert-header">
+                    <div class="alert-title">
+                        <div class="alert-icon">
+                            <i class="fas fa-gun"></i>
+                        </div>
+                        <div>
+                            <h4>Weapon Detected at Entrance</h4>
+                            <p class="alert-time">1 hour ago • <span class="badge warning">MEDIUM PRIORITY</span></p>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn-sm btn-outline" onclick="acknowledgeAlert(3)">
+                            <i class="fas fa-check"></i> Acknowledge
+                        </button>
+                        <button class="btn-sm btn-danger" onclick="resolveAlert(3)">
+                            <i class="fas fa-times"></i> Resolve
+                        </button>
+                    </div>
+                </div>
+                <div class="alert-body">
+                    <p><strong>Location:</strong> Main Entrance - Security Checkpoint</p>
+                    <p><strong>Camera:</strong> EN-CAM-01</p>
+                    <p><strong>Confidence:</strong> 92.1%</p>
+                    <p><strong>Action Taken:</strong> Security alerted, area secured</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Alerts -->
+        <div class="section-header">
+            <h2>Recent Alerts</h2>
+            <button class="btn-sm btn-outline" id="loadMoreAlerts">
+                <i class="fas fa-redo"></i> Load More
+            </button>
+        </div>
+
+        <div class="recent-alerts">
+            <div class="alert-item">
+                <div class="alert-type">
+                    <div class="alert-type-icon fall">
+                        <i class="fas fa-person-falling"></i>
+                    </div>
+                    <div class="alert-info">
+                        <h5>Person Fall Detected</h5>
+                        <p>Common Area - Elderly person assistance needed</p>
+                    </div>
+                </div>
+                <div class="alert-meta">
+                    <span class="alert-time">2 hours ago</span>
+                    <span class="severity medium">Medium</span>
+                </div>
+            </div>
+
+            <div class="alert-item">
+                <div class="alert-type">
+                    <div class="alert-type-icon sound">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <div class="alert-info">
+                        <h5>Loud Sound Detected</h5>
+                        <p>Warehouse - Possible equipment malfunction</p>
+                    </div>
+                </div>
+                <div class="alert-meta">
+                    <span class="alert-time">3 hours ago</span>
+                    <span class="severity low">Low</span>
+                </div>
+            </div>
+
+            <div class="alert-item">
+                <div class="alert-type">
+                    <div class="alert-type-icon intrusion">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <div class="alert-info">
+                        <h5>Unauthorized Intrusion</h5>
+                        <p>Restricted Area - After hours access detected</p>
+                    </div>
+                </div>
+                <div class="alert-meta">
+                    <span class="alert-time">5 hours ago</span>
+                    <span class="severity high">High</span>
+                </div>
+            </div>
+
+            <div class="alert-item">
+                <div class="alert-type">
+                    <div class="alert-type-icon accident">
+                        <i class="fas fa-car-crash"></i>
+                    </div>
+                    <div class="alert-info">
+                        <h5>Minor Vehicle Collision</h5>
+                        <p>Parking Area - No injuries reported</p>
+                    </div>
+                </div>
+                <div class="alert-meta">
+                    <span class="alert-time">6 hours ago</span>
+                    <span class="severity medium">Medium</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Settings -->
+        <div class="alert-settings">
+            <div class="section-header">
+                <h2>Alert Preferences</h2>
+                <button class="btn btn-primary" id="savePreferences">
+                    <i class="fas fa-save"></i> Save Preferences
+                </button>
+            </div>
+
+            <div class="preferences-grid">
+                <div class="preference-item">
+                    <h4>Notification Methods</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="prefEmail" checked>
+                            <label for="prefEmail">Email Alerts</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="prefSMS" checked>
+                            <label for="prefSMS">SMS Alerts</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="prefPush" checked>
+                            <label for="prefPush">Push Notifications</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="prefSound" checked>
+                            <label for="prefSound">Sound Alerts</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preference-item">
+                    <h4>Alert Schedule</h4>
+                    <div class="form-group">
+                        <label for="alertHours">Receive Alerts During</label>
+                        <select id="alertHours" class="form-control">
+                            <option value="24/7">24/7 (Always)</option>
+                            <option value="business" selected>Business Hours (9 AM - 5 PM)</option>
+                            <option value="custom">Custom Hours</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="preference-item">
+                    <h4>Quiet Hours</h4>
+                    <div class="form-group">
+                        <label for="quietStart">From</label>
+                        <input type="time" id="quietStart" class="form-control" value="22:00">
+                        <label for="quietEnd">To</label>
+                        <input type="time" id="quietEnd" class="form-control" value="06:00">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert History -->
+        <div class="alert-history">
+            <div class="section-header">
+                <h2>Alert History</h2>
+                <div class="history-filter">
+                    <select class="form-control" style="width: 150px;">
+                        <option>Last 24 Hours</option>
+                        <option selected>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="history-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Severity</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Today, 10:23 AM</td>
+                            <td><span class="alert-type-badge accident">Accident</span></td>
+                            <td>Car collision in parking area</td>
+                            <td><span class="severity high">High</span></td>
+                            <td><span class="status resolved">Resolved</span></td>
+                            <td>
+                                <button class="btn-sm btn-outline">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Yesterday, 09:45 AM</td>
+                            <td><span class="alert-type-badge fire">Fire</span></td>
+                            <td>Small fire in warehouse storage</td>
+                            <td><span class="severity critical">Critical</span></td>
+                            <td><span class="status resolved">Resolved</span></td>
+                            <td>
+                                <button class="btn-sm btn-outline">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Yesterday, 08:12 AM</td>
+                            <td><span class="alert-type-badge sound">Sound</span></td>
+                            <td>Loud noise in common area</td>
+                            <td><span class="severity medium">Medium</span></td>
+                            <td><span class="status resolved">Resolved</span></td>
+                            <td>
+                                <button class="btn-sm btn-outline">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>SmartVision AI</h4>
+                <p>Intelligent surveillance system for anomaly detection and security monitoring.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Detection Types</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-car-crash"></i> Accident Detection</a></li>
+                    <li><a href="#"><i class="fas fa-fire"></i> Fire & Smoke</a></li>
+                    <li><a href="#"><i class="fas fa-gun"></i> Weapon Detection</a></li>
+                    <li><a href="#"><i class="fas fa-volume-up"></i> Loud Sound</a></li>
+                    <li><a href="#"><i class="fas fa-person-falling"></i> Fall Detection</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="events.html"><i class="fas fa-exclamation-triangle"></i> Events</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="alerts.html" class="active"><i class="fas fa-bell"></i> Alerts</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Emergency Contacts</h4>
+                <p><i class="fas fa-phone"></i> Security: Ext. 911</p>
+                <p><i class="fas fa-ambulance"></i> Medical: Ext. 912</p>
+                <p><i class="fas fa-fire-extinguisher"></i> Fire: Ext. 913</p>
+                <p><i class="fas fa-shield-alt"></i> Police: 911</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2023 SmartVision AI. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of
+                    Service</a></p>
+            <p class="system-status">Active Alerts: <span id="activeAlertsCount">3</span> | Last Alert: <span
+                    id="lastAlertTime">2 minutes ago</span></p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/alerts.js"></script>
+</body>
+
+</html>

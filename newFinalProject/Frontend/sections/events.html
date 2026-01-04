@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | SmartVision AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/events.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SmartVision<span class="logo-highlight">AI</span></span>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="events.html" class="active"><i class="fas fa-exclamation-triangle"></i> Events</a>
+                    </li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="alerts.html"><i class="fas fa-bell"></i> Alerts <span class="badge">3</span></a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-user">
+                <div class="user-info">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=1a73e8&color=fff" alt="User">
+                    <span>Admin</span>
+                </div>
+                <div class="nav-status">
+                    <span class="status-indicator active"></span>
+                    <span>System Active</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-header">
+            <h1>Anomaly Events</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="newEventBtn">
+                    <i class="fas fa-plus"></i> New Event
+                </button>
+                <button class="btn btn-secondary" id="bulkActionsBtn">
+                    <i class="fas fa-tasks"></i> Bulk Actions
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="eventType">Event Type</label>
+                    <select id="eventType" class="filter-select">
+                        <option value="all">All Types</option>
+                        <option value="accident">Accident</option>
+                        <option value="fire">Fire</option>
+                        <option value="weapon">Weapon</option>
+                        <option value="fall">Person Fall</option>
+                        <option value="sound">Loud Sound</option>
+                        <option value="intrusion">Intrusion</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="severity">Severity</label>
+                    <select id="severity" class="filter-select">
+                        <option value="all">All Severity</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="camera">Camera</label>
+                    <select id="camera" class="filter-select">
+                        <option value="all">All Cameras</option>
+                        <option value="entrance">Entrance Gate</option>
+                        <option value="parking">Parking Area</option>
+                        <option value="warehouse">Warehouse</option>
+                        <option value="common">Common Area</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="status">Status</label>
+                    <select id="status" class="filter-select">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="false">False Positive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="date-range">
+                <div class="filter-group">
+                    <label for="startDate">From Date</label>
+                    <input type="date" id="startDate" class="date-input">
+                </div>
+                <div class="filter-group">
+                    <label for="endDate">To Date</label>
+                    <input type="date" id="endDate" class="date-input">
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-outline" id="clearFiltersBtn">
+                    <i class="fas fa-times"></i> Clear Filters
+                </button>
+                <button class="btn btn-primary" id="applyFiltersBtn">
+                    <i class="fas fa-filter"></i> Apply Filters
+                </button>
+            </div>
+        </div>
+
+        <!-- Events Grid -->
+        <div class="section-header">
+            <h2>Detected Events <span class="badge">42</span></h2>
+            <div class="header-actions">
+                <button class="btn-sm btn-outline" id="gridViewBtn">
+                    <i class="fas fa-th-large"></i> Grid
+                </button>
+                <button class="btn-sm btn-outline" id="listViewBtn">
+                    <i class="fas fa-list"></i> List
+                </button>
+            </div>
+        </div>
+
+        <div class="events-grid" id="eventsContainer">
+            <!-- Events populated by JavaScript -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn" id="prevPage">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn" id="nextPage">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <h3>Export Events Data</h3>
+            <p>Export filtered events data for analysis or reporting purposes.</p>
+            <div class="export-options">
+                <button class="export-btn" id="exportCSV">
+                    <i class="fas fa-file-csv"></i> Export as CSV
+                </button>
+                <button class="export-btn" id="exportPDF">
+                    <i class="fas fa-file-pdf"></i> Export as PDF
+                </button>
+                <button class="export-btn" id="exportExcel">
+                    <i class="fas fa-file-excel"></i> Export as Excel
+                </button>
+                <button class="export-btn" id="exportJSON">
+                    <i class="fas fa-file-code"></i> Export as JSON
+                </button>
+            </div>
+        </div>
+
+        <!-- Event Timeline -->
+        <div class="section-header">
+            <h2>Event Timeline</h2>
+            <button class="btn-sm btn-outline" id="toggleTimeline">
+                <i class="fas fa-clock"></i> Show Timeline
+            </button>
+        </div>
+
+        <div class="event-timeline" id="timelineContainer" style="display: none;">
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fas fa-car-crash"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-time">10:23 AM • Today</div>
+                    <div class="timeline-event">Car Accident Detected</div>
+                    <div class="timeline-details">Parking Area Camera • High Severity</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-time">09:45 AM • Today</div>
+                    <div class="timeline-event">Fire Detected</div>
+                    <div class="timeline-details">Warehouse Camera • High Severity • Emergency Response Initiated</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-time">08:12 AM • Today</div>
+                    <div class="timeline-event">Loud Sound Detected</div>
+                    <div class="timeline-details">Common Area Camera • Medium Severity</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>SmartVision AI</h4>
+                <p>Intelligent surveillance system for anomaly detection and security monitoring.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Detection Types</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-car-crash"></i> Accident Detection</a></li>
+                    <li><a href="#"><i class="fas fa-fire"></i> Fire & Smoke</a></li>
+                    <li><a href="#"><i class="fas fa-gun"></i> Weapon Detection</a></li>
+                    <li><a href="#"><i class="fas fa-volume-up"></i> Loud Sound</a></li>
+                    <li><a href="#"><i class="fas fa-person-falling"></i> Fall Detection</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="events.html" class="active"><i class="fas fa-exclamation-triangle"></i> Events</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="alerts.html"><i class="fas fa-bell"></i> Alerts</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-envelope"></i> support@smartvision.ai</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-clock"></i> 24/7 Monitoring Center</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2023 SmartVision AI. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of
+                    Service</a></p>
+            <p class="system-status">Events Loaded: <span id="eventsCount">0</span> | Last Updated: <span
+                    id="currentTime"></span></p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/events.js"></script>
+</body>
+
+</html>
