@@ -1,0 +1,125 @@
+# Smart Surveillance Configuration
+system:
+  name: "YOLOv11 Smart Surveillance"
+  version: "2.0"
+  debug: false
+  log_level: "INFO"
+
+camera:
+  sources:
+    - id: "cam1"
+      name: "Entrance"
+      type: "rtsp"
+      url: "rtsp://admin:password@192.168.1.100:554/stream1"
+      enabled: true
+    - id: "cam2"
+      name: "Parking"
+      type: "video"
+      url: "videos/parking.mp4"
+      enabled: true
+    - id: "cam3"
+      name: "Lobby"
+      type: "webcam"
+      index: 0
+      enabled: true
+  frame_size: [1280, 720]
+  fps: 30
+  buffer_size: 30
+
+detection:
+  model: "yolo11n.pt"
+  confidence: 0.5
+  iou: 0.45
+  classes:
+    person: 0
+    vehicle: [1, 2, 3, 5, 7]
+    suspicious_object: [26, 28, 39]  # backpack, suitcase, bottle
+  tracking: true
+  tracker_type: "bytetrack"
+
+zones:
+  restricted_zones:
+    - name: "Server Room"
+      polygon: [[100, 100], [300, 100], [300, 300], [100, 300]]
+      alarm_delay: 3  # seconds
+    - name: "CEO Office"
+      polygon: [[400, 200], [600, 200], [600, 400], [400, 400]]
+    
+  safe_zones:
+    - name: "Visitor Area"
+      polygon: [[50, 400], [250, 400], [250, 600], [50, 600]]
+
+analytics:
+  loitering:
+    enabled: true
+    threshold_time: 30  # seconds
+    threshold_area: 1000  # pixels^2
+    
+  intrusion:
+    enabled: true
+    check_restricted_zones: true
+    
+  abandoned_object:
+    enabled: true
+    stationary_time: 60  # seconds
+    alert_on_removal: true
+    
+  crowd_density:
+    enabled: true
+    high_density_threshold: 5
+    critical_threshold: 10
+    
+  vehicle_analytics:
+    enabled: true
+    speed_limit: 20  # km/h
+    parking_violation: true
+    parking_time_limit: 300  # seconds
+
+alert:
+  methods:
+    email:
+      enabled: false
+      smtp_server: "smtp.gmail.com"
+      smtp_port: 587
+      sender: "alerts@surveillance.com"
+      recipients: ["security@company.com"]
+      
+    telegram:
+      enabled: true
+      bot_token: "YOUR_BOT_TOKEN"
+      chat_id: "YOUR_CHAT_ID"
+      
+    webhook:
+      enabled: true
+      url: "http://localhost:5000/webhook"
+      
+  notifications:
+    send_snapshot: true
+    send_video_clip: true
+    clip_duration: 10  # seconds
+    cooldown_period: 60  # seconds between same alerts
+
+storage:
+  database:
+    type: "sqlite"  # or "postgresql", "mysql"
+    path: "logs/surveillance.db"
+    
+  videos:
+    retention_days: 7
+    export_path: "exports/"
+    max_size_gb: 100
+    
+  snapshots:
+    save_on_alert: true
+    path: "exports/snapshots/"
+    
+  logs:
+    path: "logs/"
+    max_files: 10
+    max_size_mb: 100
+
+dashboard:
+  port: 8501
+  theme: "dark"
+  realtime_update: true
+  update_interval: 1  # seconds
