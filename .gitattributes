@@ -3,4 +3,5 @@ Mid[[:space:]]term/backend/models/*.pth filter=lfs diff=lfs merge=lfs -text
 Mid[[:space:]]term/backend/**/*.ckpt filter=lfs diff=lfs merge=lfs -text
 Mid[[:space:]]term/backend/**/*.pt filter=lfs diff=lfs merge=lfs -text
 *.pth filter=lfs diff=lfs merge=lfs -text
+*.ckpt filter=lfs diff=lfs merge=lfs -text
 panns_model.pth filter=lfs diff=lfs merge=lfs -text
